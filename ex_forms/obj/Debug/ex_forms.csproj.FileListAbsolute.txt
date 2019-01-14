@@ -7,3 +7,6 @@ C:\Users\Alexis\Desktop\Git\devsio\ex_forms\obj\Debug\ex_forms.csproj.GenerateRe
 C:\Users\Alexis\Desktop\Git\devsio\ex_forms\obj\Debug\ex_forms.csproj.CoreCompileInputs.cache
 C:\Users\Alexis\Desktop\Git\devsio\ex_forms\obj\Debug\ex_forms.exe
 C:\Users\Alexis\Desktop\Git\devsio\ex_forms\obj\Debug\ex_forms.pdb
+C:\Users\Alexis\Desktop\Git\devsio\ex_forms\obj\Debug\ex_forms.csprojAssemblyReference.cache
+C:\Users\Alexis\Desktop\Git\devsio\ex_forms\obj\Debug\ex_forms.Form2.resources
+C:\Users\Alexis\Desktop\Git\devsio\ex_forms\obj\Debug\ex_forms.Form3.resources
