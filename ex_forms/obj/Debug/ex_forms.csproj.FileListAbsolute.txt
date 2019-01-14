@@ -1,0 +1,9 @@
+C:\Users\Alexis\Desktop\Git\devsio\ex_forms\bin\Debug\ex_forms.exe.config
+C:\Users\Alexis\Desktop\Git\devsio\ex_forms\bin\Debug\ex_forms.exe
+C:\Users\Alexis\Desktop\Git\devsio\ex_forms\bin\Debug\ex_forms.pdb
+C:\Users\Alexis\Desktop\Git\devsio\ex_forms\obj\Debug\ex_forms.Form1.resources
+C:\Users\Alexis\Desktop\Git\devsio\ex_forms\obj\Debug\ex_forms.Properties.Resources.resources
+C:\Users\Alexis\Desktop\Git\devsio\ex_forms\obj\Debug\ex_forms.csproj.GenerateResource.cache
+C:\Users\Alexis\Desktop\Git\devsio\ex_forms\obj\Debug\ex_forms.csproj.CoreCompileInputs.cache
+C:\Users\Alexis\Desktop\Git\devsio\ex_forms\obj\Debug\ex_forms.exe
+C:\Users\Alexis\Desktop\Git\devsio\ex_forms\obj\Debug\ex_forms.pdb
