@@ -1,0 +1,6 @@
+Z:\csharp\ConsoleApplication1\QCM\bin\Debug\QCM.exe.config
+Z:\csharp\ConsoleApplication1\QCM\bin\Debug\QCM.exe
+Z:\csharp\ConsoleApplication1\QCM\bin\Debug\QCM.pdb
+Z:\csharp\ConsoleApplication1\QCM\obj\Debug\QCM.exe
+Z:\csharp\ConsoleApplication1\QCM\obj\Debug\QCM.pdb
+Z:\csharp\ConsoleApplication1\QCM\obj\Debug\QCM.csprojResolveAssemblyReference.cache
