@@ -1,0 +1,14 @@
+Z:\2018_2019\SI4\Prof\Fonction\TestFonction\obj\Debug\TestFonction.csprojResolveAssemblyReference.cache
+Z:\2018_2019\SI4\Prof\Fonction\TestFonction\bin\Debug\TestFonction.dll
+Z:\2018_2019\SI4\Prof\Fonction\TestFonction\bin\Debug\TestFonction.pdb
+Z:\2018_2019\SI4\Prof\Fonction\TestFonction\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+Z:\2018_2019\SI4\Prof\Fonction\TestFonction\bin\Debug\fr\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
+Z:\2018_2019\SI4\Prof\Fonction\TestFonction\obj\Debug\TestFonction.dll
+Z:\2018_2019\SI4\Prof\Fonction\TestFonction\obj\Debug\TestFonction.pdb
+Z:\dev\Fonction\TestFonction\obj\Debug\TestFonction.csprojResolveAssemblyReference.cache
+Z:\dev\Fonction\TestFonction\obj\Debug\TestFonction.dll
+Z:\dev\Fonction\TestFonction\obj\Debug\TestFonction.pdb
+Z:\dev\Fonction\TestFonction\bin\Debug\TestFonction.dll
+Z:\dev\Fonction\TestFonction\bin\Debug\TestFonction.pdb
+Z:\dev\Fonction\TestFonction\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+Z:\dev\Fonction\TestFonction\bin\Debug\fr\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll
