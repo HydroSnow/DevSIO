@@ -1,0 +1,10 @@
+C:\Users\Alexis\Desktop\Git\devsio\gandalf\bin\Release\gandalf.exe.config
+C:\Users\Alexis\Desktop\Git\devsio\gandalf\bin\Release\gandalf.exe
+C:\Users\Alexis\Desktop\Git\devsio\gandalf\bin\Release\gandalf.pdb
+C:\Users\Alexis\Desktop\Git\devsio\gandalf\obj\Release\gandalf.Form1.resources
+C:\Users\Alexis\Desktop\Git\devsio\gandalf\obj\Release\gandalf.Properties.Resources.resources
+C:\Users\Alexis\Desktop\Git\devsio\gandalf\obj\Release\gandalf.csproj.GenerateResource.cache
+C:\Users\Alexis\Desktop\Git\devsio\gandalf\obj\Release\gandalf.csproj.CoreCompileInputs.cache
+C:\Users\Alexis\Desktop\Git\devsio\gandalf\obj\Release\gandalf.exe
+C:\Users\Alexis\Desktop\Git\devsio\gandalf\obj\Release\gandalf.pdb
+C:\Users\Alexis\Desktop\Git\devsio\gandalf\obj\Release\gandalf.csprojAssemblyReference.cache
