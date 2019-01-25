@@ -41,13 +41,14 @@
             this.d3 = new System.Windows.Forms.Button();
             this.d0 = new System.Windows.Forms.Button();
             this.bdot = new System.Windows.Forms.Button();
-            this.beq = new System.Windows.Forms.Button();
             this.bplus = new System.Windows.Forms.Button();
             this.bminus = new System.Windows.Forms.Button();
             this.btimes = new System.Windows.Forms.Button();
             this.bdivide = new System.Windows.Forms.Button();
             this.bret = new System.Windows.Forms.Button();
             this.bclear = new System.Windows.Forms.Button();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.oldcalc = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // currcalc
@@ -56,7 +57,7 @@
             this.currcalc.Location = new System.Drawing.Point(12, 12);
             this.currcalc.Name = "currcalc";
             this.currcalc.ReadOnly = true;
-            this.currcalc.Size = new System.Drawing.Size(344, 32);
+            this.currcalc.Size = new System.Drawing.Size(274, 32);
             this.currcalc.TabIndex = 0;
             this.currcalc.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -66,7 +67,7 @@
             this.currnmb.Location = new System.Drawing.Point(12, 50);
             this.currnmb.Name = "currnmb";
             this.currnmb.ReadOnly = true;
-            this.currnmb.Size = new System.Drawing.Size(344, 44);
+            this.currnmb.Size = new System.Drawing.Size(274, 44);
             this.currnmb.TabIndex = 1;
             this.currnmb.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
@@ -191,17 +192,6 @@
             this.bdot.UseVisualStyleBackColor = true;
             this.bdot.Click += new System.EventHandler(this.bdot_Click);
             // 
-            // beq
-            // 
-            this.beq.Font = new System.Drawing.Font("Microsoft Tai Le", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.beq.Location = new System.Drawing.Point(292, 170);
-            this.beq.Name = "beq";
-            this.beq.Size = new System.Drawing.Size(64, 204);
-            this.beq.TabIndex = 13;
-            this.beq.Text = "=";
-            this.beq.UseVisualStyleBackColor = true;
-            this.beq.Click += new System.EventHandler(this.beq_Click);
-            // 
             // bplus
             // 
             this.bplus.Font = new System.Drawing.Font("Microsoft Tai Le", 36F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -251,7 +241,7 @@
             this.bret.Font = new System.Drawing.Font("Microsoft Tai Le", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.bret.Location = new System.Drawing.Point(12, 310);
             this.bret.Name = "bret";
-            this.bret.Size = new System.Drawing.Size(64, 64);
+            this.bret.Size = new System.Drawing.Size(64, 134);
             this.bret.TabIndex = 18;
             this.bret.Text = "<";
             this.bret.UseVisualStyleBackColor = true;
@@ -260,26 +250,35 @@
             // bclear
             // 
             this.bclear.Font = new System.Drawing.Font("Microsoft Tai Le", 24F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bclear.Location = new System.Drawing.Point(292, 100);
+            this.bclear.Location = new System.Drawing.Point(82, 380);
             this.bclear.Name = "bclear";
-            this.bclear.Size = new System.Drawing.Size(64, 64);
+            this.bclear.Size = new System.Drawing.Size(204, 64);
             this.bclear.TabIndex = 19;
-            this.bclear.Text = "C";
+            this.bclear.Text = "Clear";
             this.bclear.UseVisualStyleBackColor = true;
             this.bclear.Click += new System.EventHandler(this.bclear_Click);
+            // 
+            // oldcalc
+            // 
+            this.oldcalc.Location = new System.Drawing.Point(292, 12);
+            this.oldcalc.Multiline = true;
+            this.oldcalc.Name = "oldcalc";
+            this.oldcalc.ReadOnly = true;
+            this.oldcalc.Size = new System.Drawing.Size(237, 432);
+            this.oldcalc.TabIndex = 20;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(361, 382);
+            this.ClientSize = new System.Drawing.Size(541, 454);
+            this.Controls.Add(this.oldcalc);
             this.Controls.Add(this.bclear);
             this.Controls.Add(this.bret);
             this.Controls.Add(this.bdivide);
             this.Controls.Add(this.btimes);
             this.Controls.Add(this.bminus);
             this.Controls.Add(this.bplus);
-            this.Controls.Add(this.beq);
             this.Controls.Add(this.bdot);
             this.Controls.Add(this.d0);
             this.Controls.Add(this.d3);
@@ -294,7 +293,7 @@
             this.Controls.Add(this.currnmb);
             this.Controls.Add(this.currcalc);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Calculatroce";
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -315,13 +314,14 @@
         private System.Windows.Forms.Button d3;
         private System.Windows.Forms.Button d0;
         private System.Windows.Forms.Button bdot;
-        private System.Windows.Forms.Button beq;
         private System.Windows.Forms.Button bplus;
         private System.Windows.Forms.Button bminus;
         private System.Windows.Forms.Button btimes;
         private System.Windows.Forms.Button bdivide;
         private System.Windows.Forms.Button bret;
         private System.Windows.Forms.Button bclear;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.TextBox oldcalc;
     }
 }
 

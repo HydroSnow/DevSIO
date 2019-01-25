@@ -1,11 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace calculatroce
@@ -13,135 +7,90 @@ namespace calculatroce
     public partial class Form1 : Form
     {
         private List<String> operand;
-        private bool ignore_nmb = false;
 
         public Form1()
         {
             InitializeComponent();
             operand = new List<String>();
+            operand.Add("");
         }
 
         private void d0_Click(object sender, EventArgs e)
         {
-            if (ignore_nmb)
-            {
-                reset();
-            }
-
-            currnmb.Text += "0";
+            operand[operand.Count - 1] += "0";
+            update();
         }
 
         private void d1_Click(object sender, EventArgs e)
         {
-            if (ignore_nmb)
-            {
-                reset();
-            }
-
-            currnmb.Text += "1";
+            operand[operand.Count - 1] += "1";
+            update();
         }
 
         private void d2_Click(object sender, EventArgs e)
         {
-            if (ignore_nmb)
-            {
-                reset();
-            }
-
-            currnmb.Text += "2";
+            operand[operand.Count - 1] += "2";
+            update();
         }
 
         private void d3_Click(object sender, EventArgs e)
         {
-            if (ignore_nmb)
-            {
-                reset();
-            }
-
-            currnmb.Text += "3";
+            operand[operand.Count - 1] += "3";
+            update();
         }
 
         private void d4_Click(object sender, EventArgs e)
         {
-            if (ignore_nmb)
-            {
-                reset();
-            }
-
-            currnmb.Text += "4";
+            operand[operand.Count - 1] += "4";
+            update();
         }
 
         private void d5_Click(object sender, EventArgs e)
         {
-            if (ignore_nmb)
-            {
-                reset();
-            }
-
-            currnmb.Text += "5";
+            operand[operand.Count - 1] += "5";
+            update();
         }
 
         private void d6_Click(object sender, EventArgs e)
         {
-            if (ignore_nmb)
-            {
-                reset();
-            }
-
-            currnmb.Text += "6";
+            operand[operand.Count - 1] += "6";
+            update();
         }
 
         private void d7_Click(object sender, EventArgs e)
         {
-            if (ignore_nmb)
-            {
-                reset();
-            }
-
-            currnmb.Text += "7";
+            operand[operand.Count - 1] += "7";
+            update();
         }
 
         private void d8_Click(object sender, EventArgs e)
         {
-            if (ignore_nmb)
-            {
-                reset();
-            }
-
-            currnmb.Text += "8";
+            operand[operand.Count - 1] += "8";
+            update();
         }
 
         private void d9_Click(object sender, EventArgs e)
         {
-            if (ignore_nmb)
-            {
-                reset();
-            }
-
-            currnmb.Text += "9";
+            operand[operand.Count - 1] += "9";
+            update();
         }
 
         private void bdot_Click(object sender, EventArgs e)
         {
-            if (ignore_nmb)
+            int n = operand.Count - 1;
+            if (operand[n] == "")
             {
-                reset();
+                operand[n] = "0,";
+            }
+            else if (!operand[n].Contains(","))
+            {
+                operand[n] += ",";
             }
 
-            if (!currnmb.Text.Contains(","))
-            {
-                if (currnmb.Text == "")
-                {
-                    currnmb.Text += "0,";
-                }
-                else
-                {
-                    currnmb.Text += ",";
-                }
-            }
+            update();
         }
 
-        private void refresh_operand()
+        private void update()
         {
             currcalc.Text = "";
             foreach (String str in operand)
@@ -183,196 +132,149 @@ namespace calculatroce
                         currcalc.Text += " " + str + " ";
                     }
                 }
+                else if (str.Length > 0 && str[0] == '-')
+                {
+                    currcalc.Text += "(" + str + ")";
+                }
                 else
                 {
                     currcalc.Text += str;
                 }
             }
-        }
 
-        private void calc_operand()
-        {
-            double act = Convert.ToDouble(operand[0]);
-            for (int a = 1; a < operand.Count; a++)
+            if (operand.Count > 0 && operand[0] != "")
             {
-                switch (operand[a])
+                double act = Convert.ToDouble(operand[0]);
+                for (int a = 1; (a + 1) < operand.Count; a += 2)
                 {
-                    case "+":
-                        act += Convert.ToDouble(operand[a + 1]);
-                        break;
-                    case "-":
-                        act -= Convert.ToDouble(operand[a + 1]);
-                        break;
-                    case "*":
-                        act *= Convert.ToDouble(operand[a + 1]);
-                        break;
-                    case "/":
-                        act /= Convert.ToDouble(operand[a + 1]);
-                        break;
+                    if (operand[a + 1] != "" && operand[a + 1] != "-")
+                    {
+                        switch (operand[a])
+                        {
+                            case "+":
+                                act += Convert.ToDouble(operand[a + 1]);
+                                break;
+                            case "-":
+                                act -= Convert.ToDouble(operand[a + 1]);
+                                break;
+                            case "*":
+                                act *= Convert.ToDouble(operand[a + 1]);
+                                break;
+                            case "/":
+                                act /= Convert.ToDouble(operand[a + 1]);
+                                break;
+                        }
+                    }
                 }
+                currnmb.Text = "" + act;
             }
-
-            currnmb.Text = "" + act;
+            else
+            {
+                currnmb.Text = "";
+            }
         }
 
         private void reset()
         {
             operand.Clear();
-            ignore_nmb = false;
-            currcalc.Text = "";
-            currnmb.Text = "";
+            operand.Add("");
+            update();
         }
 
         private void bplus_Click(object sender, EventArgs e)
         {
-            int last = operand.Count - 1;
-            if (last < 0 && currnmb.Text == "")
-            {
-                return;
-            }
-            else if (last >= 0 && (operand[last] == "+" || operand[last] == "-" || operand[last] == "*" || operand[last] == "/"))
+            int n = operand.Count - 1;
+            if (operand[n] == "" || operand[n] == "+" || operand[n] == "-" || operand[n] == "*" || operand[n] == "/")
             {
                 return;
             }
             else
             {
-                if (!ignore_nmb)
-                {
-                    operand.Add(currnmb.Text);
-                }
-                else
-                {
-                    ignore_nmb = false;
-                }
-
                 operand.Add("+");
-                currnmb.Text = "";
-                refresh_operand();
+                operand.Add("");
+                update();
             }
         }
 
         private void bminus_Click(object sender, EventArgs e)
         {
-            if (currnmb.Text == "")
+            int n = operand.Count - 1;
+            if (operand[n] == "")
             {
-                currnmb.Text += "-";
+                operand[n] = "-";
+                update();
             }
-            else if (currnmb.Text == "-")
+            else if (operand[n] == "-")
             {
                 return;
             }
             else
             {
-                if (!ignore_nmb)
-                {
-                    operand.Add(currnmb.Text);
-                }
-                else
-                {
-                    ignore_nmb = false;
-                }
-
                 operand.Add("-");
-                currnmb.Text = "";
-                refresh_operand();
+                operand.Add("");
+                update();
             }
         }
 
         private void btimes_Click(object sender, EventArgs e)
         {
-            int last = operand.Count - 1;
-            if (last < 0 && currnmb.Text == "")
-            {
-                return;
-            }
-            else if (last >= 0 && (operand[last] == "+" || operand[last] == "-" || operand[last] == "*" || operand[last] == "/"))
+            int n = operand.Count - 1;
+            if (operand[n] == "" || operand[n] == "+" || operand[n] == "-" || operand[n] == "*" || operand[n] == "/")
             {
                 return;
             }
             else
             {
-                if (!ignore_nmb)
-                {
-                    operand.Add(currnmb.Text);
-                }
-                else
-                {
-                    ignore_nmb = false;
-                }
-
                 operand.Add("*");
-                currnmb.Text = "";
-                refresh_operand();
+                update();
+                operand.Add("");
             }
         }
 
         private void bdivide_Click(object sender, EventArgs e)
         {
-            int last = operand.Count - 1;
-            if (last < 0 && currnmb.Text == "")
-            {
-                return;
-            }
-            else if (last >= 0 && (operand[last] == "+" || operand[last] == "-" || operand[last] == "*" || operand[last] == "/"))
+            int n = operand.Count - 1;
+            if (operand[n] == "" || operand[n] == "+" || operand[n] == "-" || operand[n] == "*" || operand[n] == "/")
             {
                 return;
             }
             else
             {
-                if (!ignore_nmb)
-                {
-                    operand.Add(currnmb.Text);
-                }
-                else
-                {
-                    ignore_nmb = false;
-                }
-
                 operand.Add("/");
-                currnmb.Text = "";
-                refresh_operand();
+                operand.Add("");
+                update();
             }
-        }
-
-        private void beq_Click(object sender, EventArgs e)
-        {
-            if (!ignore_nmb)
-            {
-                operand.Add(currnmb.Text);
-            }
-            else
-            {
-                ignore_nmb = false;
-            }
-
-            currnmb.Text = "";
-            refresh_operand();
-            calc_operand();
-            ignore_nmb = true;
         }
 
         private void bret_Click(object sender, EventArgs e)
         {
-            if (ignore_nmb || currnmb.Text == "")
+            int n = operand.Count - 1;
+            if (operand[n] == "")
             {
-                int last = operand.Count - 1;
-                if (last >= 0 && (operand[last] == "+" || operand[last] == "-" || operand[last] == "*" || operand[last] == "/"))
+                if (n > 0 && (operand[n - 1] == "+" || operand[n - 1] == "-" || operand[n - 1] == "*" || operand[n - 1] == "/"))
                 {
-                    operand.RemoveAt(operand.Count - 1);
+                    operand.RemoveAt(n);
+                    n--;
                 }
-                currnmb.Text = operand[operand.Count - 1];
-                operand.RemoveAt(operand.Count - 1);
-                refresh_operand();
-                ignore_nmb = false;
+                operand.RemoveAt(n);
+                update();
             }
             else
             {
-                currnmb.Text = currnmb.Text.Substring(0, currnmb.Text.Length - 1);
+                operand[n] = operand[n].Substring(0, operand[n].Length - 1);
+                update();
             }
         }
 
         private void bclear_Click(object sender, EventArgs e)
         {
+            int n;
+            while ((n = operand.Count - 1) >= 0 && new List<String>(new String[]{ "", "+", "-", "*", "/" }).Contains(operand[n]))
+            {
+                operand.RemoveAt(n);
+            }
+            update();
+            oldcalc.Text += currcalc.Text + " = " + currnmb.Text + "\r\n";
             reset();
         }
     }
