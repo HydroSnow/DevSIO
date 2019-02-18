@@ -5,26 +5,42 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 		<style>
+			body {
+				background-image: linear-gradient(
+						rgba(0, 0, 0, 0.5), 
+						rgba(0, 0, 0, 0.5)
+					), 
+					url("grass.png");
+			}
+		
 			header {
-				background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("shrek.jpg");
-				background-position: 0px -260px; 
+				background-image: linear-gradient(
+						rgba(0, 0, 0, 0.5), 
+						rgba(0, 0, 0, 0.5)
+					), 
+					url("shrek.jpg");
+				background-position: 0px -260px;
+			}
+			
+			.page-row {
+				background-color: white;
 			}
 
-			.titos {
-				background-color: rgba(0, 355, 0, 0.05);
+			.page-module {
+				background-color: rgba(0, 255, 0, 0.05);
 			}
-			</style>
+		</style>
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 	</head>
 	<body>
-		<div class="container">
-			<header class="page-header p-3 text-center text-white">
+		<div class="container page-row p-0">
+			<header class="page-header p-5 text-center text-white">
 				<h1>Vegania</h1>
 				<h3>Vente de produits naturels</h2>
 			</header>
 		</div>
-		<div class="container">
-			<nav class="navbar navbar-expand-sm bg-success navbar-dark">
+		<div class="container page-row p-0">
+			<nav class="navbar navbar-expand-sm navbar-dark bg-success">
 				<span class="navbar-brand text-white" href="#">Navigation</span>
 				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collnavbar">
 					<span class="navbar-toggler-icon white"></span>
@@ -44,37 +60,33 @@
 				</div>
 			</nav>
 		</div>
-		<div class="container">
+		<div class="container page-row p-0">
 			<div class="row m-0">
-				<div class="col-md-12 p-2 text-center">
-					<h2 class="my-1">Accueil</h2>
-				</div>
-			</div>
-			<div class="row m-0">
-				<div class="col-md-8 p-0 px-1">
-					<div class="titos p-3 my-2">
+				<div class="col-md-8 p-0">
+					<h2 class="my-3 text-center">Accueil</h2>
+					<div class="page-module p-3 m-2">
 						<h3>Module principal</h3>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
 						<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
 					</div>
-					<div class="titos p-3 my-2">
+					<div class="page-module p-3 m-2">
 						<h3>Module principal</h3>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
 						<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
 					</div>
-					<div class="titos p-3 my-2">
+					<div class="page-module p-3 m-2">
 						<h3>Module principal</h3>
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
 						<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
 					</div>
 				</div>
-				<div class="col-md-4 p-0 px-1">
-					<div class="titos p-3 my-2">
+				<div class="col-md-4 p-0">
+					<div class="page-module p-3 m-2">
 						<h3>Module secondaire</h3>        
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
 						<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
 					</div>
-					<div class="titos p-3 my-2">
+					<div class="page-module p-3 m-2">
 						<h3>Module secondaire</h3>        
 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</p>
 						<p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris...</p>
@@ -82,8 +94,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="container">
-			<footer class="page-footer bg-success p-3 text-center text-white">
+		<div class="container page-row p-0">
+			<footer class="page-footer p-3 bg-success text-center text-white">
 				<div class="container">
 					<p class="py-1 my-0">Le fouteure</p>
 				</div>
