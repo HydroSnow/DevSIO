@@ -1,22 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.Windows.Forms;
 
 namespace cs_pictionary
 {
-    static class Program
+    public class Program
     {
-        /// <summary>
-        /// Point d'entrée principal de l'application.
-        /// </summary>
-        [STAThread]
-        static void Main()
+        private static Program program;
+
+        private static Program getProgram()
+        {
+            return program;
+        }
+
+        private static void Main()
+        {
+            program = new Program();
+        }
+
+        private Program()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Client());
+            Fenetre fenetre = new Fenetre();
+            Application.Run(fenetre);
         }
     }
 }
