@@ -4,16 +4,9 @@ namespace cs_pictionary
 {
     public class Program
     {
-        private static Program program;
-
-        private static Program getProgram()
-        {
-            return program;
-        }
-
         private static void Main()
         {
-            program = new Program();
+            Program program = new Program();
         }
 
         private Program()

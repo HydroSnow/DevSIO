@@ -24,6 +24,12 @@ namespace cs_pictionary
             this.fenetre = fenetre;
             
             String[] spl = host.Split(':');
+
+            if (spl.Length != 2)
+            {
+                throw new ArgumentException();
+            }
+
             String hostname = spl[0];
             int port = Int32.Parse(spl[1]);
 
@@ -40,120 +46,116 @@ namespace cs_pictionary
         {
             try
             {
-                Message msg = Message.Read(ns);
-                lock (messages)
+                while (true)
                 {
-                    messages.Add(msg);
+                    Message msg = Message.Read(ns);
+                    lock (messages)
+                    {
+                        messages.Add(msg);
+                    }
                 }
             }
             catch (Exception)
             {
-                try
-                {
-                    cli.Close();
-                }
-                catch (Exception)
-                { }
-                fenetre.RemoveConnection();
+                Close();
+            }
+        }
+
+        public void Close()
+        {
+            try
+            {
+                cli.Close();
+            }
+            catch (Exception)
+            { }
+            fenetre.RemoveConnection();
+        }
+
+        public void SendPacket(Message message)
+        {
+            try
+            {
+                message.Write(ns);
+            }
+            catch (Exception)
+            {
+                Close();
             }
         }
 
         public void SendChat(String message)
         {
-            try
-            {
-                byte[] bytes = Encoding.UTF8.GetBytes(message);
-                new Message(1, bytes).Write(ns);
-            }
-            catch (Exception)
-            {
-                try
-                {
-                    cli.Close();
-                }
-                catch (Exception)
-                { }
-                fenetre.RemoveConnection();
-            }
+            byte[] bytes = Encoding.UTF8.GetBytes(message);
+            Message msg = new Message(1, bytes);
+            SendPacket(msg);
         }
 
         public void SendLine(Line line)
         {
-            try
-            {
-                byte[] bytes = line.Serialize();
-                new Message(2, bytes).Write(ns);
-            }
-            catch (Exception)
-            {
-                try
-                {
-                    cli.Close();
-                }
-                catch (Exception)
-                { }
-                fenetre.RemoveConnection();
-            }
+            byte[] bytes = line.Serialize();
+            Message msg = new Message(2, bytes);
+            SendPacket(msg);
         }
 
         public void SendClear()
         {
-            try
-            {
-                new Message(3).Write(ns);
-            }
-            catch (Exception)
-            {
-                try
-                {
-                    cli.Close();
-                }
-                catch (Exception)
-                { }
-                fenetre.RemoveConnection();
-            }
+            Message msg = new Message(3);
+            SendPacket(msg);
+        }
+        
+        public void SendPseudo(String pseudo)
+        {
+            byte[] bytes = Encoding.UTF8.GetBytes(pseudo);
+            Message msg = new Message(4, bytes);
+            SendPacket(msg);
         }
 
         public void ProcessMessage()
         {
-            Message msg;
-            lock (messages)
+            while (true)
             {
-                if (messages.Count == 0)
+                Message msg;
+                lock (messages)
                 {
-                    return;
+                    if (messages.Count == 0)
+                    {
+                        return;
+                    }
+
+                    msg = messages[0];
+                    messages.RemoveAt(0);
                 }
-                msg = messages[0];
-                messages.RemoveAt(0);
+
+                switch (msg.Type)
+                {
+                    case 1:
+                        String str = Encoding.UTF8.GetString(msg.Data);
+                        fenetre.WriteLine(str);
+                        break;
+
+                    case 2:
+                        Line line = Line.Deserialize(msg.Data);
+                        fenetre.PutLine(line);
+                        break;
+
+                    case 3:
+                        fenetre.Clear();
+                        break;
+
+                    case 4:
+                        fenetre.SetDrawable(true);
+                        break;
+
+                    case 5:
+                        fenetre.SetDrawable(false);
+                        break;
+
+                    default:
+                        throw new InvalidDataException("Unknown type");
+                }
             }
-
-            switch (msg.Type)
-            {
-                case 1:
-                    String str = Encoding.UTF8.GetString(msg.Data);
-                    fenetre.WriteLine(str);
-                    break;
-
-                case 2:
-                    Line line = Line.Deserialize(msg.Data);
-                    fenetre.PutLine(line);
-                    break;
-
-                case 3:
-                    fenetre.Clear();
-                    break;
-
-                case 4:
-                    fenetre.SetDrawable(true);
-                    break;
-
-                case 5:
-                    fenetre.SetDrawable(false);
-                    break;
-
-                default:
-                    throw new InvalidDataException("Unknown type");
-            }
+            
         }
     }
 }

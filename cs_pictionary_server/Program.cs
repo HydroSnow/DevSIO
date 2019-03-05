@@ -3,20 +3,38 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 
 namespace cs_pictionary_server
 {
     public class Program
     {
-        private List<User> users = new List<User>();
+        private static void Main(string[] args)
+        {
+            Program program = new Program();
+        }
+
+        private readonly List<User> users;
+        private readonly GameManager manager;
+        private Socket socket;
+        private Thread t;
 
         private Program()
         {
+            users = new List<User>();
+            manager = new GameManager(this);
+            
+            t = new Thread(AcceptUserThread);
+            t.Start();
+        }
+
+        public void AcceptUserThread()
+        {
             IPEndPoint ip = new IPEndPoint(IPAddress.Any, 23666);
-            Socket socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+            socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
             socket.Bind(ip);
             socket.Listen(10);
-
+            
             while (true)
             {
                 try
@@ -30,7 +48,6 @@ namespace cs_pictionary_server
                     Console.WriteLine(e);
                 }
             }
-
         }
 
         public void AddUser(User user)
@@ -53,7 +70,7 @@ namespace cs_pictionary_server
                 users.Remove(user);
             }
 
-            String text = "Un utilisateur s'est déconnecté.";
+            String text = user.Pseudo + " s'est déconnecté.";
             byte[] bytes = Encoding.UTF8.GetBytes(text);
             Message msg = new Message(1, bytes);
             BroadcastMessage(msg);
@@ -89,18 +106,12 @@ namespace cs_pictionary_server
                         remove.Add(user);
                     }
                 }
-
-                foreach (User user in remove)
-                {
-                    user.Remove();
-                    users.Remove(user);
-                }
             }
-        }
 
-        private static void Main(string[] args)
-        {
-            new Program();
+            foreach (User user in remove)
+            {
+                user.Close();
+            }
         }
     }
 }

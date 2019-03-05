@@ -44,7 +44,7 @@ namespace cs_pictionary
             Buffer.BlockCopy(BitConverter.GetBytes(p1.Y), 0, bytes, 4, 4);
             Buffer.BlockCopy(BitConverter.GetBytes(p2.X), 0, bytes, 8, 4);
             Buffer.BlockCopy(BitConverter.GetBytes(p2.Y), 0, bytes, 12, 4);
-            Buffer.BlockCopy(BitConverter.GetBytes(pen.Color.ToArgb()), 0, bytes, 16, 3);
+            Buffer.BlockCopy(BitConverter.GetBytes(pen.Color.ToArgb()), 0, bytes, 16, 4);
             Buffer.BlockCopy(BitConverter.GetBytes(pen.Width), 0, bytes, 20, 4);
             return bytes;
         }

@@ -1,12 +1,19 @@
 ﻿using System;
 using System.IO;
 using System.Net.Sockets;
+using System.Text;
 using System.Threading;
 
 namespace cs_pictionary_server
 {
     public class User
     {
+        public String Pseudo
+        {
+            get;
+            private set;
+        }
+
         private Program program;
         private Thread t;
         private readonly Socket cli;
@@ -21,36 +28,9 @@ namespace cs_pictionary_server
             Message msg = new Message(4);
             msg.Write(ns);
 
-            byte[] bytes = new byte[24];
-            Buffer.BlockCopy(BitConverter.GetBytes(0f), 0, bytes, 0, 4);
-            Buffer.BlockCopy(BitConverter.GetBytes(0f), 0, bytes, 4, 4);
-            Buffer.BlockCopy(BitConverter.GetBytes(200f), 0, bytes, 8, 4);
-            Buffer.BlockCopy(BitConverter.GetBytes(200f), 0, bytes, 12, 4);
-            Buffer.BlockCopy(BitConverter.GetBytes(0), 0, bytes, 16, 3);
-            Buffer.BlockCopy(BitConverter.GetBytes(30f), 0, bytes, 20, 4);
-
-            Message msg2 = new Message(2, bytes);
-            msg2.Write(ns);
-
             t = new Thread(ReadThread);
             t.Start();
         }
-
-        public void Remove()
-        {
-            t.Abort();
-            try
-            {
-                cli.Close();
-            }
-            catch (Exception)
-            { }
-        }
-
-        public void SendMessage(Message msg)
-        {
-            msg.Write(ns);
-        }        
 
         private void ReadThread()
         {
@@ -63,7 +43,11 @@ namespace cs_pictionary_server
                     switch (msg.Type)
                     {
                         case 1:
-                            program.BroadcastMessage(msg);
+                            String str = Encoding.UTF8.GetString(msg.Data);
+                            str = " " + Pseudo + " : " + str;
+                            byte[] bytes = Encoding.UTF8.GetBytes(str);
+                            Message paupiette = new Message(1, bytes);
+                            program.BroadcastMessage(paupiette);
                             break;
 
                         case 2:
@@ -71,23 +55,41 @@ namespace cs_pictionary_server
                             program.BroadcastMessage(msg, this);
                             break;
 
+                        case 4:
+                            Pseudo = Encoding.UTF8.GetString(msg.Data);
+                            break;
+
                         default:
                             throw new InvalidDataException("Unknown type");
                     }
                 }
             }
-            catch (ThreadAbortException)
-            { }
             catch (Exception)
             {
-                try
-                {
-                    cli.Close();
-                }
-                catch (Exception)
-                { }
+                Close();
+            }
+        }
 
-                program.RemoveUser(this);
+        public void Close()
+        {
+            try
+            {
+                cli.Close();
+            }
+            catch (Exception)
+            { }
+            program.RemoveUser(this);
+        }
+
+        public void SendMessage(Message msg)
+        {
+            try
+            {
+                msg.Write(ns);
+            }
+            catch (Exception)
+            {
+                Close();
             }
         }
     }

@@ -7,6 +7,7 @@ namespace cs_pictionary
 {
     public partial class Fenetre : Form
     {
+        String pseudo = null;
         Connection conn = null;
         List<Line> lines = new List<Line>();
         PointF[] position = new PointF[2];
@@ -19,10 +20,13 @@ namespace cs_pictionary
         public Fenetre()
         {
             InitializeComponent();
-            Application.Idle += new EventHandler(Fenetre_Idle);
             SetDrawable(false);
             EmptyChat();
-            
+
+            Timer timer = new Timer();
+            timer.Interval = 100;
+            timer.Tick += new EventHandler(Idle);
+            timer.Start();
         }
 
         public void RemoveConnection()
@@ -41,7 +45,8 @@ namespace cs_pictionary
         public void PutLine(Line line)
         {
             lines.Add(line);
-            line.Draw(DrawPanel.CreateGraphics());
+            Graphics g = DrawPanel.CreateGraphics();
+            line.Draw(g);
         }
 
         public void Clear()
@@ -54,7 +59,18 @@ namespace cs_pictionary
         public void EmptyChat()
         {
             ChatBox.Text = "";
-            WriteLine("Connectez-vous à un serveur en tapant l'adresse de connexion (ip:port).");
+            if (pseudo == null)
+            {
+                WriteLine("Entrez votre pseudo.");
+            }
+            else if (conn == null)
+            {
+                WriteLine("Tapez l'adresse de connexion (ip:port).");
+            }
+            else
+            {
+                WriteLine("Vous êtes connectés à un serveur.");
+            }
         }
 
         public void WriteLine(String str)
@@ -66,7 +82,12 @@ namespace cs_pictionary
         {
             String text = InputBox.Text;
             InputBox.Clear();
-            if (conn == null)
+            if (pseudo == null)
+            {
+                pseudo = text;
+                WriteLine("Tapez l'adresse de connexion (ip:port).");
+            }
+            else if (conn == null)
             {
                 Cursor oldCursor = Cursor;
                 Cursor = Cursors.WaitCursor;
@@ -74,6 +95,7 @@ namespace cs_pictionary
                 try
                 {
                     conn = new Connection(this, text);
+                    conn.SendPseudo(pseudo);
                     WriteLine("Connecté !");
                 }
                 catch (Exception ex)
@@ -195,7 +217,7 @@ namespace cs_pictionary
             }
         }
 
-        public void Fenetre_Idle(object sender, EventArgs e)
+        public void Idle(object sender, EventArgs e)
         {
             if (disconnect)
             {
