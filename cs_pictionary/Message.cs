@@ -1,6 +1,4 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
+﻿using System.IO;
 using System.Net.Sockets;
 
 namespace cs_pictionary
@@ -10,7 +8,7 @@ namespace cs_pictionary
         public static Message Read(NetworkStream ns)
         {
             byte type = (byte)ns.ReadByte();
-
+            
             MemoryStream ms = new MemoryStream();
             bool read = true;
             bool escape = false;
@@ -64,7 +62,7 @@ namespace cs_pictionary
             get;
         }
 
-        private byte[] bytes;
+        private byte[] Bytes;
 
         public Message(byte type)
         {
@@ -75,7 +73,7 @@ namespace cs_pictionary
             ms.WriteByte(Type);
             ms.WriteByte(255);
             ms.WriteByte(0);
-            bytes = ms.ToArray();
+            Bytes = ms.ToArray();
         }
 
         public Message(byte type, byte[] data)
@@ -95,14 +93,14 @@ namespace cs_pictionary
             }
             ms.WriteByte(255);
             ms.WriteByte(0);
-            bytes = ms.ToArray();
+            Bytes = ms.ToArray();
         }
 
         public void Write(NetworkStream ns)
         {
             lock (ns)
             {
-                ns.Write(bytes, 0, bytes.Length);
+                ns.Write(Bytes, 0, Bytes.Length);
                 ns.Flush();
             }
         }

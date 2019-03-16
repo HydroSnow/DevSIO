@@ -16,7 +16,6 @@ namespace cs_pictionary
         bool buttonPressed = false;
         bool disconnect = false;
         
-
         public Fenetre()
         {
             InitializeComponent();
@@ -85,7 +84,7 @@ namespace cs_pictionary
             if (pseudo == null)
             {
                 pseudo = text;
-                WriteLine("Tapez l'adresse de connexion (ip:port).");
+                EmptyChat();
             }
             else if (conn == null)
             {
@@ -96,7 +95,7 @@ namespace cs_pictionary
                 {
                     conn = new Connection(this, text);
                     conn.SendPseudo(pseudo);
-                    WriteLine("Connecté !");
+                    EmptyChat();
                 }
                 catch (Exception ex)
                 {
@@ -232,5 +231,6 @@ namespace cs_pictionary
                 conn.ProcessMessage();
             }
         }
+
     }
 }

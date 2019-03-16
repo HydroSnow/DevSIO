@@ -17,15 +17,19 @@ namespace cs_pictionary_server
         private readonly List<User> users;
         private readonly GameManager manager;
         private Socket socket;
-        private Thread t;
+        private Thread t_u;
+        private Thread t_h;
 
         private Program()
         {
             users = new List<User>();
             manager = new GameManager(this);
-            
-            t = new Thread(AcceptUserThread);
-            t.Start();
+
+            t_u = new Thread(AcceptUserThread);
+            t_u.Start();
+
+            t_h = new Thread(HeartbeatUserThread);
+            t_h.Start();
         }
 
         public void AcceptUserThread()
@@ -42,6 +46,31 @@ namespace cs_pictionary_server
                     Socket usrsock = socket.Accept();
                     User user = new User(this, usrsock);
                     AddUser(user);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                }
+            }
+        }
+
+        public void HeartbeatUserThread()
+        {
+            Message msg = new Message(6);
+
+            while (true)
+            {
+                try
+                {
+                    lock (users)
+                    {
+                        foreach (User user in users)
+                        {
+                            user.SendMessage(msg);
+                        }
+                    }
+
+                    Thread.Sleep(1000);
                 }
                 catch (Exception e)
                 {

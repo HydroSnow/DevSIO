@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Net.Sockets;
 
 namespace cs_pictionary_server
@@ -63,7 +62,7 @@ namespace cs_pictionary_server
             get;
         }
 
-        private byte[] bytes;
+        private byte[] Bytes;
 
         public Message(byte type)
         {
@@ -74,14 +73,14 @@ namespace cs_pictionary_server
             ms.WriteByte(Type);
             ms.WriteByte(255);
             ms.WriteByte(0);
-            bytes = ms.ToArray();
+            Bytes = ms.ToArray();
         }
 
         public Message(byte type, byte[] data)
         {
             Type = type;
             Data = data;
-            
+
             MemoryStream ms = new MemoryStream();
             ms.WriteByte(Type);
             foreach (byte b in Data)
@@ -94,14 +93,14 @@ namespace cs_pictionary_server
             }
             ms.WriteByte(255);
             ms.WriteByte(0);
-            bytes = ms.ToArray();
+            Bytes = ms.ToArray();
         }
 
         public void Write(NetworkStream ns)
         {
             lock (ns)
             {
-                ns.Write(bytes, 0, bytes.Length);
+                ns.Write(Bytes, 0, Bytes.Length);
                 ns.Flush();
             }
         }

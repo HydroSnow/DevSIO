@@ -13,11 +13,11 @@ namespace cs_pictionary
 
         private Fenetre fenetre;
 
-        private Thread t;
-
         private TcpClient tcp;
-        private readonly Socket cli;
-        private readonly NetworkStream ns;
+        private Socket cli;
+        private NetworkStream ns;
+
+        private Thread t;
 
         public Connection(Fenetre fenetre, String host)
         {
@@ -151,11 +151,14 @@ namespace cs_pictionary
                         fenetre.SetDrawable(false);
                         break;
 
+                    case 6:
+                        break;
+
                     default:
                         throw new InvalidDataException("Unknown type");
                 }
             }
-            
         }
+
     }
 }
