@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		<title>BTS GAME</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
+		<style>
+			body {
+				background-color: black;
+				text-align: center;
+				font-size: 1.3em;
+			}
+		
+			.railway {
+				background: url("railways.png") no-repeat center; 
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+			}
+			
+			header, footer {
+				background-color: black !important;
+				color: white;
+			}
+			
+			footer p {
+				margin: 0;
+			}
+			
+			main {
+				background-color: white;
+			}
+			
+			.asticot .card-img-top {
+				height: 20vh;
+				object-fit: cover;
+			}
+		</style>
+	</head>
+	<body>
+	
+		<header class="p-2 m-0">
+			<h1><a href="#"><img src="title.gif" class="img-fluid" /></a></h1>
+		</header>
+
+		<nav class="navbar navbar-default navbar-expand navbar-dark bg-dark">
+			<div class="navbar-collapse collapse justify-content-center">
+				<ul class="nav navbar-nav">
+					<li class="nav-item active">
+						<a class="nav-link" href="#">Accueil</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Pseudo</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Résultat</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Quitter</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		
+		<div class="m-0 p-0 p-sm-3 railway">
+			<main class="container px-3 px-sm-5 py-3">
+				<h2 class="my-4">Relevez le défi !</h2>
+				<p>
+					<strong>Le BTS SIO vous met à l'épreuve.</strong><br />
+					Vous devez répondre à 10 questions. Pour cela, plusieurs indices seront cachés dans le bâtiment B sous forme de tags NFC ou de QR CODE. Afin de trouver les tags, une carte vous sera remise.
+				</p>
+				<div class="row my-4 asticot">
+					<div class="col-md m-2 p-3">
+						<div class="card">
+							<img class="card-img-top" src="nfc.jpg" alt="Card image cap">
+							<div class="card-body">
+								<h5 class="card-title">Méthode NFC</h5>
+								<p class="card-text">Vous aurez besoin d’un smartphone capable de lire les tags NFC ainsi que d'une application spéciale.</p>
+								<a href="https://play.google.com/store/apps/details?id=joerikros.nfcchecker" class="btn btn-primary m-2">Application Android</a>
+								<a href="https://itunes.apple.com/fr/app/nfc-reader-for-iphone/id1249686798" class="btn btn-primary m-2">Application iOS</a>
+							</div>
+						</div>
+					</div>
+					<div class="col-md m-2 p-3">
+						<div class="card">
+							<img class="card-img-top" src="qr.png" alt="Card image cap">
+							<div class="card-body">
+								<h5 class="card-title">Méthode QR CODE</h5>
+								<p class="card-text">Vous aurez besoin d’un smartphone doté d'un appareil photo ainsi que d'une application spéciale.</p>
+								<a href="https://play.google.com/store/apps/details?id=tw.mobileapp.qrcode.banner" class="btn btn-primary m-2">Application Android</a>
+								<a href="https://itunes.apple.com/fr/app/qr-reader-for-iphone/id368494609" class="btn btn-primary m-2">Application iOS</a>
+							</div>
+						</div>
+					</div>
+				</div>
+				<p>
+					Si vous parvenez à résoudre les 10 questions, vous deviendrez le BOSS des énigmes !<br />
+					<img src="boss.gif" class="m-3 img-fluid" />
+				</p>
+				<p>Bonne chance et que le sort vous soit favorable.</p>
+				<a href="#" class="btn btn-lg btn-primary m-3">Je veux jouer !</a>
+			</main>
+		</div>
+	
+		<footer class="p-3 m-0">
+			<p>Réalisé par la fine équipe des BTS SIO.</p>
+		</footer>
+
+		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+	</body>
+</html>

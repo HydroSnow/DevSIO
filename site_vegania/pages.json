@@ -1,0 +1,17 @@
+{
+	"accueil": {
+		"title": "Accueil",
+		"shown": true,
+		"path": "/pages/accueil.php"
+	},
+	"produits": {
+		"title": "Produits",
+		"shown": true,
+		"path": "/pages/produits.php"
+	},
+	"contact": {
+		"title": "Contact",
+		"shown": true,
+		"path": "/pages/contact.php"
+	}
+}

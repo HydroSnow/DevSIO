@@ -7,6 +7,18 @@ namespace cs_pictionary
     {
         public static Message Read(NetworkStream ns)
         {
+            int chk0 = ns.ReadByte();
+            if (chk0 != 69)
+            {
+                throw new InvalidDataException("This isn't a good message");
+            }
+            
+            int chk1 = ns.ReadByte();
+            if (chk1 != 42)
+            {
+                throw new InvalidDataException("This isn't a good message");
+            }
+            
             byte type = (byte)ns.ReadByte();
             
             MemoryStream ms = new MemoryStream();
@@ -70,6 +82,8 @@ namespace cs_pictionary
             Data = new byte[0];
 
             MemoryStream ms = new MemoryStream();
+            ms.WriteByte(69);
+            ms.WriteByte(42);
             ms.WriteByte(Type);
             ms.WriteByte(255);
             ms.WriteByte(0);
@@ -82,6 +96,8 @@ namespace cs_pictionary
             Data = data;
             
             MemoryStream ms = new MemoryStream();
+            ms.WriteByte(69);
+            ms.WriteByte(42);
             ms.WriteByte(Type);
             foreach (byte b in Data)
             {
