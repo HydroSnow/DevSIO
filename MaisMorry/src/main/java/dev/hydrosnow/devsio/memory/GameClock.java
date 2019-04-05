@@ -29,13 +29,12 @@ public class GameClock {
 			
 			final List<Runnable> list = events.get(tick);
 			if (list != null) {
-				try {
-					for (final Runnable r : list) {
+				for (final Runnable r : list) {
+					try {
 						r.run();
+					} catch (final Exception e) {
+						e.printStackTrace();
 					}
-				} catch (final Exception e) {
-					e.printStackTrace();
-					exit();
 				}
 				events.remove(tick);
 			}
@@ -44,7 +43,6 @@ public class GameClock {
 				loop();
 			} catch (final Exception e) {
 				e.printStackTrace();
-				exit();
 			}
 			
 			time = (System.nanoTime() - time);

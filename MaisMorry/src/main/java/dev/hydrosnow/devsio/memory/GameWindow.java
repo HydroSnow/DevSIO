@@ -27,7 +27,7 @@ public class GameWindow extends JFrame {
 	}
 	
 	public void build() {
-		setTitle("Program (MrGF edition)");
+		setTitle("MrGF's Battlegrounds");
 		setSize(600, 600);
 		setLocationRelativeTo(null);
 		setResizable(false);
