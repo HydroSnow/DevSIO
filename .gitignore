@@ -4,6 +4,7 @@ cs_*/obj
 cs_*/packages
 MaisMorry/.gradle/
 MaisMorry/.idea/
+MaisMorry/build/
 MaisMorry/out/
 MaisMorry/gradle
 MaisMorry/gradlew
