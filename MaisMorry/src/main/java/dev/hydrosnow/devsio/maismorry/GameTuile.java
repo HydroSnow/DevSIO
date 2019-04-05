@@ -6,75 +6,68 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
-public class GameTuile extends JPanel {
+public class GameTuile extends JPanel implements MouseListener {
+	private final static BufferedImage imageUnknown = GameResources.getImage("/mystery.png");
+	private final static BufferedImage imageVictory = GameResources.getImage("/gagnere.png");
 	
-	private BufferedImage imageUnknown;
-	private BufferedImage imageCurrent;
-	private TuileType type;
+	private final Type type;
+	private State state = State.IDLE;
 	
-	private boolean clickable = true;
-	
-	public GameTuile(final TuileType type) {
-		imageUnknown = GameResources.getImage("/mystery.png");
-		imageCurrent = imageUnknown;
-		
+	public GameTuile(final Type type) {
 		this.type = type;
-		
-		final GameTuile tuile = this;
-		addMouseListener(new MouseListener() {
-			@Override
-			public void mouseClicked(final MouseEvent e) { }
-			
-			@Override
-			public void mousePressed(final MouseEvent e) {
-				if (clickable) {
-					GameLogic.click(tuile);
-				}
-			}
-			
-			@Override
-			public void mouseReleased(final MouseEvent e) { }
-			
-			@Override
-			public void mouseEntered(final MouseEvent e) { }
-			
-			@Override
-			public void mouseExited(final MouseEvent e) { }
-		});
+		addMouseListener(this);
 	}
 	
-	public TuileType getType() {
+	public Type getType() {
 		return type;
 	}
 	
-	public void putNullImage() {
-		imageCurrent = null;
-		repaint();
+	public State getState() {
+		return state;
 	}
 	
-	public void putTypeImage() {
-		imageCurrent = type.getImage();
+	public void setState(final State state) {
+		this.state = state;
 		repaint();
-	}
-	
-	public void putUnknownImage() {
-		imageCurrent = imageUnknown;
-		repaint();
-	}
-	
-	public void setClickable(final boolean c) {
-		clickable = c;
 	}
 	
 	@Override
 	protected void paintComponent(final Graphics g) {
 		super.paintComponent(g);
-		if (imageCurrent != null) {
-			g.drawImage(imageCurrent, 0, 0, this);
+		if (state == State.IDLE) {
+			g.drawImage(imageUnknown, 0, 0, this);
+		} else if (state == State.SELECTED) {
+			g.drawImage(type.getImage(), 0, 0, this);
+		} else if (state == State.FINISHED) {
+			g.drawImage(imageVictory, 0, 0, this);
 		}
 	}
 	
-	public enum TuileType {
+	@Override
+	public void mouseClicked(final MouseEvent e) { }
+	
+	@Override
+	public void mousePressed(final MouseEvent e) {
+		GameLogic.click(this);
+	}
+	
+	@Override
+	public void mouseReleased(final MouseEvent e) { }
+	
+	@Override
+	public void mouseEntered(final MouseEvent e) { }
+	
+	@Override
+	public void mouseExited(final MouseEvent e) { }
+	
+	public enum State {
+		IDLE,
+		SELECTED,
+		DISABLED,
+		FINISHED
+	}
+	
+	public enum Type {
 		MRGF_1("/mrgf_1_res.png"),
 		MRGF_2("/mrgf_2_res.png"),
 		MRGF_3("/mrgf_3_res.png"),
@@ -86,11 +79,11 @@ public class GameTuile extends JPanel {
 		
 		private final BufferedImage image;
 		
-		TuileType(final String path) {
+		Type(final String path) {
 			image = GameResources.getImage(path);
 		}
 		
-		public BufferedImage getImage() {
+		BufferedImage getImage() {
 			return image;
 		}
 	}

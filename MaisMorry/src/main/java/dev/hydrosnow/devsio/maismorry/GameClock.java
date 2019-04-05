@@ -10,19 +10,21 @@ public class GameClock {
 	private static final int DURATION_OF_TICK = 1_000_000_000 / TICKS_PER_SECOND;
 	
 	private GameWindow window = null;
-	private Thread thread = null;
 	private boolean running = true;
 	private long tick = 0;
-	private Map<Long, ArrayList<Runnable>> events;
+	private final Map<Long, ArrayList<Runnable>> events;
 	
 	public GameClock() {
 		events = new HashMap<>();
 	}
 	
+	public GameWindow gameWindow() {
+		return window;
+	}
+	
 	public void start() {
 		window = new GameWindow();
-		final Thread thread = new Thread(this::run);
-		thread.start();
+		new Thread(this::run).start();
 	}
 	
 	private void run() {
@@ -66,7 +68,7 @@ public class GameClock {
 		}
 	}
 	
-	public void exit() {
+	private void exit() {
 		window.dispose();
 		running = false;
 	}

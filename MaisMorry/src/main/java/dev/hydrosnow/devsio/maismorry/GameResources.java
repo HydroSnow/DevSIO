@@ -7,7 +7,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GameResources {
+class GameResources {
 	private static final Map<String, BufferedImage> images = new HashMap<>();
 	public static BufferedImage getImage(final String path) {
 		return images.computeIfAbsent(path, (p) -> {
