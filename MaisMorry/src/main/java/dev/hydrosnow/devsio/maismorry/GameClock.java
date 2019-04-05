@@ -10,9 +10,9 @@ public class GameClock {
 	private static final int DURATION_OF_TICK = 1_000_000_000 / TICKS_PER_SECOND;
 	
 	private GameWindow window = null;
+	private final Map<Long, ArrayList<Runnable>> events;
 	private boolean running = true;
 	private long tick = 0;
-	private final Map<Long, ArrayList<Runnable>> events;
 	
 	public GameClock() {
 		events = new HashMap<>();

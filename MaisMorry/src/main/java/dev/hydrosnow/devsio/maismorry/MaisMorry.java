@@ -1,6 +1,6 @@
 package dev.hydrosnow.devsio.maismorry;
 
-public class MaisMorry {
+class MaisMorry {
 	private static GameClock clock;
 	public static GameClock gameClock() {
 		return clock;
