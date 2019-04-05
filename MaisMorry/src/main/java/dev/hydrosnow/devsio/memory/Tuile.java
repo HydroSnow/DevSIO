@@ -1,4 +1,4 @@
-package dev.hydrosnow.devsio.maismorry;
+package dev.hydrosnow.devsio.memory;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,14 +6,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.image.BufferedImage;
 
-public class GameTuile extends JPanel implements MouseListener {
-	private final static BufferedImage imageUnknown = GameResources.getImage("/mystery.png");
-	private final static BufferedImage imageVictory = GameResources.getImage("/gagnere.png");
+public class Tuile extends JPanel implements MouseListener {
 	
 	private final Type type;
 	private State state = State.IDLE;
 	
-	public GameTuile(final Type type) {
+	public Tuile(final Type type) {
 		this.type = type;
 		addMouseListener(this);
 	}
@@ -35,11 +33,11 @@ public class GameTuile extends JPanel implements MouseListener {
 	protected void paintComponent(final Graphics g) {
 		super.paintComponent(g);
 		if (state == State.IDLE) {
-			g.drawImage(imageUnknown, 0, 0, this);
+			g.drawImage(Program.resources().getImageUnknown(), 0, 0, this);
 		} else if (state == State.SELECTED) {
 			g.drawImage(type.getImage(), 0, 0, this);
 		} else if (state == State.FINISHED) {
-			g.drawImage(imageVictory, 0, 0, this);
+			g.drawImage(Program.resources().getImageVictory(), 0, 0, this);
 		}
 	}
 	
@@ -48,7 +46,7 @@ public class GameTuile extends JPanel implements MouseListener {
 	
 	@Override
 	public void mousePressed(final MouseEvent e) {
-		GameLogic.click(this);
+		Program.logic().click(this);
 	}
 	
 	@Override
@@ -80,7 +78,7 @@ public class GameTuile extends JPanel implements MouseListener {
 		private final BufferedImage image;
 		
 		Type(final String path) {
-			image = GameResources.getImage(path);
+			image = Program.resources().getImage(path);
 		}
 		
 		BufferedImage getImage() {

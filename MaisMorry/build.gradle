@@ -16,6 +16,6 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Main-Class': 'dev.hydrosnow.devsio.maismorry.MaisMorry'
+        attributes 'Main-Class': 'dev.hydrosnow.devsio.memory.Program'
     }
 }

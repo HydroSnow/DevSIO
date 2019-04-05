@@ -1,4 +1,4 @@
-package dev.hydrosnow.devsio.maismorry;
+package dev.hydrosnow.devsio.memory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +9,6 @@ public class GameClock {
 	private static final int TICKS_PER_SECOND = 20;
 	private static final int DURATION_OF_TICK = 1_000_000_000 / TICKS_PER_SECOND;
 	
-	private GameWindow window = null;
 	private final Map<Long, ArrayList<Runnable>> events;
 	private boolean running = true;
 	private long tick = 0;
@@ -18,12 +17,8 @@ public class GameClock {
 		events = new HashMap<>();
 	}
 	
-	public GameWindow gameWindow() {
-		return window;
-	}
-	
 	public void start() {
-		window = new GameWindow();
+		Program.window().build();
 		new Thread(this::run).start();
 	}
 	
@@ -34,8 +29,13 @@ public class GameClock {
 			
 			final List<Runnable> list = events.get(tick);
 			if (list != null) {
-				for (final Runnable r : list) {
-					r.run();
+				try {
+					for (final Runnable r : list) {
+						r.run();
+					}
+				} catch (final Exception e) {
+					e.printStackTrace();
+					exit();
 				}
 				events.remove(tick);
 			}
@@ -63,13 +63,13 @@ public class GameClock {
 	}
 	
 	private void loop() {
-		if (!window.isVisible()) {
+		if (!Program.window().isVisible()) {
 			exit();
 		}
 	}
 	
 	private void exit() {
-		window.dispose();
+		Program.window().dispose();
 		running = false;
 	}
 	
