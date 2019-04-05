@@ -2,3 +2,9 @@ cs_*/.vs
 cs_*/bin
 cs_*/obj
 cs_*/packages
+MaisMorry/.gradle/
+MaisMorry/.idea/
+MaisMorry/out/
+MaisMorry/gradle
+MaisMorry/gradlew
+MaisMorry/gradlew.bat
