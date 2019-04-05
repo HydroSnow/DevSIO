@@ -1,8 +1,9 @@
 package dev.hydrosnow.devsio.maismorry;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import dev.hydrosnow.devsio.maismorry.GameTuile.TuileType;
 import javax.swing.*;
 import java.awt.*;
 
@@ -21,7 +22,7 @@ public class GameWindow extends JFrame {
 		getContentPane().setBackground(backgroundColor);
 		getContentPane().setLayout(new BoxLayout(getContentPane(), BoxLayout.Y_AXIS));
 		
-		panels = new Tuile[4][4];
+		panels = new GameTuile[4][4];
 		
 		final List<TuileType> typeList = new ArrayList<>();
 		for (final TuileType t : TuileType.values()) {
@@ -44,7 +45,7 @@ public class GameWindow extends JFrame {
 				final TuileType type = typeList.get(0);
 				typeList.remove(0);
 				
-				final Tuile image = new Tuile(type);
+				final GameTuile image = new GameTuile(type);
 				image.setBackground(panelBackgroundColor);
 				image.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 				final Dimension size = new Dimension(100, 100);
