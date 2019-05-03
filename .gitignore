@@ -6,3 +6,8 @@ java_*/.gradle/
 java_*/.idea/
 java_*/build/
 java_*/out/
+java_android_*/*.iml
+java_android_*/local.properties
+java_android_*/.DS_Store
+java_android_*/captures
+java_android_*/.externalNativeBuild
