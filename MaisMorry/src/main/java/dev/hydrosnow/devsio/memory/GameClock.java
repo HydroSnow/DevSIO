@@ -45,8 +45,7 @@ public class GameClock {
 				e.printStackTrace();
 			}
 			
-			time = (System.nanoTime() - time);
-			time = DURATION_OF_TICK - time;
+			time = DURATION_OF_TICK - System.nanoTime() + time;
 			if (time > 0) {
 				try {
 					Thread.sleep(time / 1_000_000L, (int) (time % 1_000_000));
