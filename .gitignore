@@ -2,10 +2,10 @@ cs_*/.vs
 cs_*/bin
 cs_*/obj
 cs_*/packages
-java_*/.gradle/
-java_*/.idea/
-java_*/build/
-java_*/out/
+java_*/.settings/
+java_*/bin/
+java_*/.classpath
+java_*/.project
 java_android_*/*.iml
 java_android_*/local.properties
 java_android_*/.DS_Store
