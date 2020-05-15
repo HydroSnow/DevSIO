@@ -1,0 +1,128 @@
+DROP TABLE jouer;
+DROP TABLE oeuvre;
+DROP TABLE concert;
+DROP TABLE tarif;
+DROP TABLE soliste;
+
+
+CREATE TABLE soliste (
+  nums NUMBER(3),
+  noms VARCHAR(30) NOT NULL,
+  TYPES VARCHAR(20) NOT NULL,
+  PRIMARY KEY (nums)
+);
+INSERT INTO soliste VALUES (1,'TERESA MAY','SOPRANO');
+INSERT INTO soliste VALUES (2,'URSULA MITREGA','SOPRANO');
+INSERT INTO soliste VALUES (3,'JADMINA RAPPE','ALTO');
+INSERT INTO soliste VALUES (4,'HENR. GRYCHNIK','TENOR');
+INSERT INTO soliste VALUES (5,'ROM. TESAROWICZ','BASSE');
+INSERT INTO soliste VALUES (6,'DEL. AMBRUZIAK','SOPRANO');
+INSERT INTO soliste VALUES (7,'MALF. TOMALAK','VIOLON');
+INSERT INTO soliste VALUES (8,'KRIT. JAKOWICZ','VIOLON');
+INSERT INTO soliste VALUES (9,'STEFAN KAMASA','ALTO');
+INSERT INTO soliste VALUES (10,'ANDREIORKISZ','VIOLONCELLE');
+INSERT INTO soliste VALUES (11,'GUY TESTON','PIANO');
+INSERT INTO soliste VALUES (12,'WOOT CODERKAMM','BASSE');
+INSERT INTO soliste VALUES (13,'GILAH YARON','SOPRANO');
+INSERT INTO soliste VALUES (14,'FRIEDER LANG','TENOR');
+
+
+CREATE TABLE tarif (
+  lieut VARCHAR(20),
+  placet VARCHAR(20),
+  visibilitet VARCHAR(5),
+  prixt NUMBER(5,2),
+  PRIMARY KEY (lieut, placet)
+);
+INSERT INTO tarif (lieut, placet, prixt) VALUES ('basilique','serie 1',15.24);
+INSERT INTO tarif (lieut, placet, visibilitet, prixt) VALUES ('basilique','serie 5','vp',2.29);
+INSERT INTO tarif (lieut, placet, prixt) VALUES ('basilique','serie 2',10.67);
+INSERT INTO tarif (lieut, placet, prixt) VALUES ('basilique','serie 3',7.62);
+INSERT INTO tarif (lieut, placet, visibilitet, prixt) VALUES ('basilique','serie 4','vp',3.81);
+INSERT INTO tarif (lieut, placet, prixt) VALUES ('basilique','tribune',22.87);
+INSERT INTO tarif (lieut, placet, prixt) VALUES ('cathedrale','serie 1',22.87);
+INSERT INTO tarif (lieut, placet, prixt) VALUES ('cathedrale','serie 2',15.24);
+INSERT INTO tarif (lieut, placet, prixt) VALUES ('cathedrale','serie 3',10.67);
+INSERT INTO tarif (lieut, placet, visibilitet, prixt) VALUES ('cathedrale','serie 4','vp',7.62);
+INSERT INTO tarif (lieut, placet, visibilitet, prixt) VALUES ('cathedrale','serie 5','sv',3.81);
+INSERT INTO tarif (lieut, placet, prixt) VALUES ('abbaye','serie 1',15.24);
+INSERT INTO tarif (lieut, placet, prixt) VALUES ('abbaye','serie 2',10.67);
+INSERT INTO tarif (lieut, placet, visibilitet, prixt) VALUES ('abbaye','serie 3','vp',7.62);
+INSERT INTO tarif (lieut, placet, visibilitet, prixt) VALUES ('abbaye','serie 4','sv',3.81);
+
+
+CREATE TABLE concert (
+  numc NUMBER(3),
+  datec DATE NOT NULL,
+  progc VARCHAR(30) NOT NULL,
+  dirc VARCHAR(20) NOT NULL,
+  lieuc VARCHAR(20) NOT NULL,
+  PRIMARY KEY (numc)
+);
+INSERT INTO concert VALUES (1, '07/04/1989', 'ouverture', 'markowski', 'basilique');
+INSERT INTO concert VALUES (2, '08/04/1989', 'chant', 'szostack', 'basilique');
+INSERT INTO concert VALUES (3, '09/04/1989', 'concertos', 'szostack', 'cathedrale');
+INSERT INTO concert VALUES (4, '10/04/1989', 'musique française', 'salanne', 'abbaye');
+INSERT INTO concert VALUES (5, '11/04/1989', 'soiree js bach', 'salanne', 'cathedrale');
+INSERT INTO concert VALUES (6, '12/04/1989', 'lieder et contate', 'markowski', 'cathedrale');
+INSERT INTO concert VALUES (7, '13/04/1989', 'la creation', 'redel', 'basilique');
+INSERT INTO concert VALUES (8, '14/04/1989', 'cloture', 'redel', 'basilique');
+
+
+CREATE TABLE oeuvre (
+  numo NUMBER(3),
+  nomo VARCHAR(30) NOT NULL,
+  compo VARCHAR(20) NOT NULL,
+  formeo VARCHAR(20) NOT NULL,
+  numc NUMBER(3) NOT NULL REFERENCES concert(numc),
+  PRIMARY KEY (numo)
+);
+INSERT INTO OEUVRE VALUES (1,'symphonie no4','mahler','oeuv symph',1);
+INSERT INTO OEUVRE VALUES (2,'magnificat','js bach','oratorio',1);
+INSERT INTO OEUVRE VALUES (3,'judas macchabee','haendel','oratorio',2);
+INSERT INTO OEUVRE VALUES (4,'suite no3 re majeur','js bach','concerto',3);
+INSERT INTO OEUVRE VALUES (5,'concerto mi majeur','js bach','concerto',3);
+INSERT INTO OEUVRE VALUES (6,'excultatejubilate','mozart','oratorio',3);
+INSERT INTO OEUVRE VALUES (7,'quator no1 ut min','faure','oeuv symph',4);
+INSERT INTO OEUVRE VALUES (8,'cantique de racine','faure','oratorio',4);
+INSERT INTO OEUVRE VALUES (9,'tantum ergo','faure','oratorio',4);
+INSERT INTO OEUVRE VALUES (10,'quatre motets','poulenc','fugue',4);
+INSERT INTO OEUVRE VALUES (11,'suite liturgique','jolivet','oratorio',4);
+INSERT INTO OEUVRE VALUES (12,'concerto brande no4','js bach','concerto',5);
+INSERT INTO OEUVRE VALUES (13,'concerto brande no6','js bach','concerto',5);
+INSERT INTO OEUVRE VALUES (14,'cantate bwv 18','js bach','oratorio',5);
+INSERT INTO OEUVRE VALUES (15,'cantate bwv 106','js bach','oratorio',5);
+INSERT INTO OEUVRE VALUES (16,'cantate bwv 209','js bach','oratorio',6);
+INSERT INTO OEUVRE VALUES (17,'shicksalslied','brahms','lied',6);
+INSERT INTO OEUVRE VALUES (18,'la creation','haydn','oratorio',7);
+INSERT INTO OEUVRE VALUES (19,'neuvieme symphonie','beethoven','oeuv symph',8);
+
+
+CREATE TABLE jouer (
+  noeuvre NUMBER(3) REFERENCES oeuvre(numo),
+  nosoliste NUMBER(3) REFERENCES soliste(nums),
+  PRIMARY KEY (noeuvre, nosoliste)
+);
+INSERT INTO JOUER VALUES (1,1);
+INSERT INTO JOUER VALUES (1,2);
+INSERT INTO JOUER VALUES (1,4);
+INSERT INTO JOUER VALUES (1,5);
+INSERT INTO JOUER VALUES (2,6);
+INSERT INTO JOUER VALUES (2,2);
+INSERT INTO JOUER VALUES (2,4);
+INSERT INTO JOUER VALUES (2,5);
+INSERT INTO JOUER VALUES (3,6);
+INSERT INTO JOUER VALUES (3,7);
+INSERT INTO JOUER VALUES (4,8);
+INSERT INTO JOUER VALUES (4,9);
+INSERT INTO JOUER VALUES (4,10);
+INSERT INTO JOUER VALUES (4,11);
+INSERT INTO JOUER VALUES (5,1);
+INSERT INTO JOUER VALUES (5,3);
+INSERT INTO JOUER VALUES (5,4);
+INSERT INTO JOUER VALUES (5,5);
+INSERT INTO JOUER VALUES (3,2);
+INSERT INTO JOUER VALUES (4,2);
+INSERT INTO JOUER VALUES (5,2);
+
+COMMIT;

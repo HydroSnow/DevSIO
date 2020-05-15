@@ -1,0 +1,68 @@
+a)
+SELECT * 
+FROM c##mauguy.ch2produit produit;
+
+b)
+SELECT nomfour, villefour 
+FROM c##mauguy.ch2fournisseur fournisseur;
+
+c)
+SELECT DISTINCT villecli 
+FROM c##mauguy.ch2client client;
+
+d)
+SELECT nomfour, villefour 
+FROM c##mauguy.ch2fournisseur fournisseur
+WHERE numfour = 2
+OR numfour = 3
+OR numfour = 4;
+
+SELECT nomfour, villefour 
+FROM c##mauguy.ch2fournisseur fournisseur
+WHERE numfour IN (2, 3, 4);
+
+SELECT nomfour, villefour 
+FROM c##mauguy.ch2fournisseur fournisseur
+WHERE numfour BETWEEN 2 AND 4;
+
+e)
+SELECT *
+FROM c##mauguy.ch2representant representant
+WHERE nomrep LIKE 'D%'
+ORDER BY nomrep;
+
+f)
+SELECT refprod, nomprod, prixunitprod, categorie.nomcat
+FROM c##mauguy.ch2produit produit
+INNER JOIN c##mauguy.ch2categorie categorie ON produit.codecat = categorie.codecat;
+
+g)
+SELECT produit.nomprod, detailcommande.qtedc, datecde
+FROM c##mauguy.ch2commande commande
+INNER JOIN c##mauguy.ch2detailcommande detailcommande ON commande.numcde = detailcommande.numcde
+INNER JOIN c##mauguy.ch2produit produit ON detailcommande.refprod = produit.refprod
+WHERE commande.numcde = 6;
+
+s)
+SELECT numcli, count(numcde)
+FROM c##mauguy.ch2commande commande
+GROUP BY numcli;
+
+t)
+SELECT villefour, count(numfour)
+FROM c##mauguy.ch2fournisseur fournisseur
+GROUP BY villefour;
+
+u)
+SELECT numrep
+FROM c##mauguy.ch2commande commande
+GROUP BY numrep
+HAVING count(numcde) >= 2;
+
+v)
+SELECT refprod, nomprod
+FROM c##mauguy.ch2produit produit
+WHERE refprod NOT IN (
+  SELECT refprod
+  FROM c##mauguy.ch2detailcommande
+);

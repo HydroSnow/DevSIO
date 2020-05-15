@@ -1,0 +1,168 @@
+1)
+SELECT *
+FROM employe;
+
+2)
+SELECT numemp, nomemp
+FROM employe
+WHERE numdep = 30;
+
+3)
+SELECT nomdep
+FROM departement
+WHERE numdep > 20;
+
+4)
+SELECT nomdep
+FROM departement
+WHERE numdep IN (10, 30, 50);
+
+5)
+SELECT numemp, nomemp, departement.numdep, nomdep
+FROM employe
+INNER JOIN departement ON employe.numdep = departement.numdep;
+
+6)
+SELECT nomemp, salaireemp, commemp
+FROM employe
+WHERE commemp > salaireemp;
+
+7)
+SELECT nomemp
+FROM employe
+WHERE fonctionemp = 'Vendeur'
+AND numdep = 30
+AND salaireemp > 21500;
+
+8)
+SELECT nomemp, fonctionemp, salaireemp
+FROM employe
+WHERE fonctionemp = 'Directeur'
+OR salaireemp > 23000;
+
+9)
+SELECT *
+FROM employe
+WHERE fonctionemp != 'Directeur'
+AND fonctionemp != 'Ouvrier'
+AND numdep = 10;
+
+10)
+SELECT nomemp, fonctionemp, salaireemp
+FROM employe
+WHERE salaireemp > 12000
+AND salaireemp < 13000;
+
+11)
+SELECT nomemp, fonctionemp, salaireemp
+FROM employe
+WHERE salaireemp < 12000
+OR salaireemp > 14000;
+
+12)
+SELECT nomemp, fonctionemp, salaireemp
+FROM employe
+WHERE numdep = 30;
+
+13)
+SELECT nomemp, fonctionemp, salaireemp
+FROM employe
+WHERE numdep = 40;
+
+14)
+SELECT avg(salaireemp)
+FROM employe;
+
+15)
+SELECT sum(salaireemp)
+FROM employe;
+
+16)
+SELECT avg(salaireemp / 12)
+FROM employe;
+
+17)
+SELECT max(salaireemp)
+FROM employe;
+
+18)
+SELECT count(*)
+FROM employe
+WHERE numdep = 30;
+
+19)
+SELECT numemp, nomemp
+FROM employe
+WHERE salaireemp = (
+  SELECT max(salaireemp)
+  FROM employe
+);
+
+20)
+SELECT numemp, nomemp
+FROM employe
+WHERE salaireemp > (
+  SELECT avg(salaireemp)
+  FROM employe
+);
+
+21)
+SELECT *
+FROM employe
+WHERE numdep = (
+  SELECT numdep
+  FROM employe
+  WHERE nomemp = 'DUPONT'
+);
+
+22)
+SELECT count(unique fonctionemp)
+FROM employe
+WHERE numdep = 20;
+
+23)
+SELECT *
+FROM employe
+WHERE numdep = (
+  SELECT numdep
+  FROM departement
+  WHERE nomdep = 'INFORMATIQUE'
+);
+
+24)
+SELECT fonctionemp, count(*)
+FROM employe
+GROUP BY fonctionemp;
+
+25)
+SELECT numdep, avg(salaireemp)
+FROM employe
+GROUP BY numdep;
+
+26)
+SELECT numdep
+FROM (
+  SELECT numdep, count(*) as nombre
+  FROM employe
+  GROUP BY numdep
+)
+WHERE nombre >= 5;
+
+27)
+WITH nombres
+AS (
+  SELECT numdep, count(*) as nombre
+  FROM employe
+  GROUP BY numdep
+)
+SELECT numdep
+FROM nombres
+WHERE nombre = (
+  SELECT max(nombre)
+  FROM nombres
+);
+
+28)
+SELECT *
+FROM employe
+WHERE nomemp LIKE 'D%';

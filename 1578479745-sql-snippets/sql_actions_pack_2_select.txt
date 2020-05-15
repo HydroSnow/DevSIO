@@ -1,0 +1,139 @@
+1)
+SELECT *
+FROM tp2agestionnaire;
+
+2)
+SELECT nocpt, dateouverture, nocli
+FROM tp2acompte
+ORDER BY dateouverture DESC;
+
+3)
+SELECT nomcli, prenomcli
+FROM tp2aclient
+WHERE nocli >= 100;
+
+4)
+SELECT nocpt
+FROM tp2acompte
+WHERE dateouverture < to_date('01/01/2009');
+
+5)
+SELECT nomgest
+FROM tp2agestionnaire
+WHERE nomgest LIKE '%T%'
+ORDER BY nomgest;
+
+6)
+SELECT montantop
+FROM tp2aoperation
+WHERE nocpt = 14563
+AND sensop = 'D';
+
+7)
+SELECT nocpt, nomcli, prenomcli
+FROM tp2acompte
+INNER JOIN tp2aclient ON tp2aclient.nocli = tp2acompte.nocli;
+
+8)
+SELECT noop, montantop, nomcli, prenomcli, libtype
+FROM tp2aoperation
+INNER JOIN tp2acompte ON tp2aoperation.nocpt = tp2acompte.nocpt
+INNER JOIN tp2aclient ON tp2acompte.nocli = tp2aclient.nocli
+INNER JOIN tp2atypecompte ON tp2atypecompte.codtype = tp2acompte.codtype;
+
+9)
+SELECT nocpt
+FROM tp2acompte
+INNER JOIN tp2atypecompte ON tp2atypecompte.codtype = tp2acompte.codtype
+WHERE libtype = 'LIVRET JEUNE';
+
+10)
+SELECT nomcli, prenomcli
+FROM tp2aclient
+INNER JOIN tp2agerer ON tp2agerer.nocli = tp2aclient.nocli
+INNER JOIN tp2agestionnaire ON tp2agestionnaire.nogest = tp2agerer.nogest
+WHERE nomgest = 'DUPONT';
+
+11)
+SELECT nocpt
+FROM tp2acompte
+INNER JOIN tp2atypecompte ON tp2atypecompte.codtype = tp2acompte.codtype
+INNER JOIN tp2aclient ON tp2acompte.nocli = tp2aclient.nocli
+WHERE libtype = 'CHEQUE'
+AND nomcli = 'MARTIN';
+
+12)
+SELECT DISTINCT *
+FROM tp2aclient
+INNER JOIN tp2acompte ON tp2aclient.nocli = tp2acompte.nocli
+INNER JOIN tp2atypecompte ON tp2atypecompte.codtype = tp2acompte.codtype
+WHERE nomcli LIKE '%A%'
+AND libtype = 'PEL';
+
+SELECT DISTINCT nocli
+FROM tp2aclient
+WHERE nomcli LIKE '%A%'
+INTERSECT
+SELECT DISTINCT tp2aclient.nocli
+FROM tp2aclient
+INNER JOIN tp2acompte ON tp2aclient.nocli = tp2acompte.nocli
+INNER JOIN tp2atypecompte ON tp2atypecompte.codtype = tp2acompte.codtype
+WHERE libtype = 'PEL';
+
+13)
+SELECT nomgest
+FROM tp2agestionnaire
+INNER JOIN tp2agerer ON tp2agerer.nogest = tp2agestionnaire.nogest
+WHERE nocli NOT IN (
+  SELECT nocli
+  FROM tp2acompte
+  INNER JOIN tp2atypecompte ON tp2atypecompte.codtype = tp2acompte.codtype
+  WHERE libtype = 'CHEQUE'
+);
+
+14)
+SELECT dateouverture
+FROM tp2acompte
+WHERE nocpt NOT IN (
+  SELECT tp2acompte.nocpt
+  FROM tp2acompte
+  INNER JOIN tp2aoperation ON tp2acompte.nocpt = tp2aoperation.nocpt
+  WHERE sensop = 'D'
+);
+
+15)
+SELECT sum(montantop)
+FROM tp2aoperation;
+
+16)
+SELECT sum(montantop)
+FROM tp2aoperation
+WHERE nocpt = 14563
+AND sensop = 'D';
+
+17)
+SELECT nocpt, count(*)
+FROM tp2aoperation
+GROUP BY nocpt;
+
+18)
+SELECT sensop, sum(montantop)
+FROM tp2aoperation
+GROUP BY sensop;
+
+19)
+SELECT nocpt, avg(montantop)
+FROM tp2aoperation
+WHERE sensop = 'D'
+GROUP BY nocpt;
+
+20)
+SELECT nocpt
+FROM tp2aoperation
+GROUP BY nocpt
+HAVING count(*) >= 3;
+
+21)
+SELECT DISTINCT nomcli, adrcli
+FROM tp2aclient
+INNER JOIN tp2acompte ON tp2aclient.nocli = tp2acompte.nocli;

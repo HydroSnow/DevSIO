@@ -1,0 +1,144 @@
+DROP TABLE stock;
+DROP TABLE vendre;
+DROP TABLE composant;
+DROP TABLE assembler;
+DROP TABLE ouvriere;
+DROP TABLE fournisseur;
+DROP TABLE clientele;
+DROP TABLE prodf;
+
+
+CREATE TABLE prodf (
+  nopf        NUMBER(3),
+  libellepf   VARCHAR2(25)  NOT NULL,
+  tpsasspf    NUMBER(3)     NOT NULL,
+  chargespf   NUMBER(3)     NOT NULL,
+  PRIMARY KEY (nopf)
+);
+INSERT INTO prodf VALUES (16,'Table Azur', 20, 40);
+INSERT INTO prodf VALUES (26,'Table Basse',15,25);
+INSERT INTO prodf VALUES (28,'Table Mer',10,30);
+INSERT INTO prodf VALUES (32,'Banc en bois', 40, 35);
+
+
+CREATE TABLE clientele (
+  nocli       NUMBER(3),
+  raison      VARCHAR2(25)  NOT NULL,
+  adrcli      VARCHAR2(50)  NOT NULL,
+  PRIMARY KEY (nocli)
+);
+INSERT INTO clientele VALUES (12,'Vacances 2002','20 allée des Charmes 49000 ANGERS');
+INSERT INTO clientele VALUES (10,'Mr Dupont','110 route des Vallons 44000 NANTES');
+
+
+CREATE TABLE fournisseur (
+  nofour      NUMBER(3),
+  nomfour     VARCHAR2(15)  NOT NULL,
+  adrfour     VARCHAR2(50)  NOT NULL,
+  cpvillefour   VARCHAR2(25)  NOT NULL,
+  PRIMARY KEY (nofour)
+);
+INSERT INTO fournisseur VALUES (14,'DEVAIS','110 rue Maine','75200 PARIS');
+INSERT INTO fournisseur VALUES (18,'GATIEN','20 rue Maine','44300 NANTES');
+INSERT INTO fournisseur VALUES (24,'FANOU','5 rue du Lac','53000 LAVAL');
+INSERT INTO fournisseur VALUES (35,'DUVAL','7 rue du Chêne','44300 NANTES');
+
+
+CREATE TABLE ouvriere ( 
+  nomat       NUMBER(3),
+  nom         VARCHAR2(15)  NOT NULL,
+  prenom      VARCHAR2(50)  NOT NULL,
+  adresse     VARCHAR2(25)  NOT NULL,
+  ville       VARCHAR2(25)  NOT NULL,
+  cpfour      VARCHAR2(5)   NOT NULL,
+  dateemb     DATE          NOT NULL,
+  quali       VARCHAR2(3),
+  PRIMARY KEY (nomat)
+);
+INSERT INTO ouvriere VALUES (5,'MATHIEU','Odette','20 rue des Bleuets','NANTES','44000','13/03/47','op2');
+INSERT INTO ouvriere VALUES (6,'BASTIEN','Florence','18 rue H.Berlioz','NANTES','44000','05/09/56','op2');
+INSERT INTO ouvriere VALUES (2,'RIVOIRE','Jeanne','10 rue des Lilas','NANTES','44000','01/12/41','op2');
+INSERT INTO ouvriere VALUES (4,'BOUILLON','Alice','4 bd Foch','NANTES','44000','04/11/48','op2');
+INSERT INTO ouvriere VALUES (1,'LOISEAU','Emile','7 Bd Hoch','NANTES','44000','04/10/52','op2');
+
+
+CREATE TABLE assembler (
+  nomat       NUMBER(3)     REFERENCES ouvriere(nomat),
+  dateouvr    DATE          NOT NULL,
+  nopf        NUMBER(3)     REFERENCES prodf(nopf),
+  qteass      NUMBER(3)     NOT NULL,
+  PRIMARY KEY (nomat, dateouvr)  
+);
+INSERT INTO assembler VALUES (5,'18/04/2016',28,48);
+INSERT INTO assembler VALUES (2,'17/04/2016',28,40);
+INSERT INTO assembler VALUES (4,'17/04/2016',28,23);
+INSERT INTO assembler VALUES (6,'16/04/2016',28,39);
+INSERT INTO assembler VALUES (5,'17/04/2016',26,42);
+INSERT INTO assembler VALUES (5,'16/04/2016',16,31);
+INSERT INTO assembler VALUES (5,'10/10/2016',16,12);
+INSERT INTO assembler VALUES (2,'11/01/2016',28,98);
+INSERT INTO assembler VALUES (4,'10/01/2016',26,98);
+INSERT INTO assembler VALUES (2,'18/04/2016',16,10);
+INSERT INTO assembler VALUES (5,'02/05/2016',26,50);
+INSERT INTO assembler VALUES (2,'02/05/2016',16,40);
+INSERT INTO assembler VALUES (4,'01/02/2016',28,30);
+INSERT INTO assembler VALUES (2,'15/04/2016',16,10);
+INSERT INTO assembler VALUES (5,'19/04/2016',32,10);
+
+
+CREATE TABLE composant (
+  nocomp      NUMBER(4),
+  design      VARCHAR2(25)  NOT NULL,
+  pha         FLOAT(5)      NOT NULL,
+  qten        NUMBER(3)     NOT NULL,
+  nopf        NUMBER(3)     REFERENCES prodf(nopf),
+  nofour      NUMBER(3)     REFERENCES fournisseur(nofour),
+  PRIMARY KEY (nocomp)
+);
+INSERT INTO composant VALUES (511,'Double pied table',12,2,28,18);
+INSERT INTO composant VALUES (512,'Ailettes acier males',0.5,4,28,18);
+INSERT INTO composant VALUES (513,'Pieds de réglage',5,4,26,18);
+INSERT INTO composant VALUES (514,'Armature plateau',6,2,16,24);
+INSERT INTO composant VALUES (515,'Plateau bois Mer',8,1,28,35);
+INSERT INTO composant VALUES (516,'Plateau bois Azur',20,1,16,14);
+INSERT INTO composant VALUES (810,'Ailettes inox',0.1,20,28,14);
+INSERT INTO composant VALUES (706,'Armature rigide',9,1,28,35);
+
+
+CREATE TABLE vendre (
+  nocli       NUMBER(3)     REFERENCES clientele(nocli),
+  dateouvr    DATE          NOT NULL,
+  nopf        NUMBER(3)     REFERENCES prodf(nopf),
+  qtev        NUMBER(2),
+  mtv         NUMBER(5),
+  PRIMARY KEY (nocli, dateouvr, nopf) 
+);
+INSERT INTO vendre VALUES (12,'05/03/2016',28,50,7500);
+INSERT INTO vendre VALUES (12,'20/03/2016',28,40,6400);
+INSERT INTO vendre VALUES (12,'22/04/2016',28,50,8000);
+INSERT INTO vendre VALUES (10,'01/01/2016',26,52,1250);
+INSERT INTO vendre VALUES (10,'10/02/2016',26,12,1000);
+INSERT INTO vendre VALUES (10,'10/02/2016',28,19,1560);
+
+
+CREATE TABLE stock (
+  nocomp      NUMBER(4)     REFERENCES composant(nocomp),
+  dateouvr    DATE          NOT NULL,
+  si          NUMBER(5),
+  qteent      NUMBER(5),
+  qtesort     NUMBER(5),
+  PRIMARY KEY (nocomp, dateouvr)
+);
+INSERT INTO stock VALUES (515,'18/04/2016',800,4000,150);
+INSERT INTO stock VALUES (515,'19/04/2016',4650,1500,70);
+INSERT INTO stock VALUES (511,'18/04/2016',500,200,150);
+INSERT INTO stock VALUES (511,'19/04/2016',550,250,400);
+INSERT INTO stock VALUES (512,'18/04/2016',200,500,300);
+INSERT INTO stock VALUES (513,'18/04/2016',200,500,300);
+INSERT INTO stock VALUES (514,'18/04/2016',250,550,350);
+INSERT INTO stock VALUES (514,'19/04/2016',250,550,350);
+INSERT INTO stock VALUES (810,'18/04/2016',500,1000,800);
+INSERT INTO stock VALUES (810,'19/04/2016',700,300,500);
+
+
+COMMIT;

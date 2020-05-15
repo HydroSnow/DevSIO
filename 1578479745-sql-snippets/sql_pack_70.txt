@@ -1,0 +1,73 @@
+1)
+  SET SERVEROUTPUT ON
+  DECLARE
+    a NUMBER(8) := 1;
+    b NUMBER(8) := 2;
+    
+    temp NUMBER(8);
+  BEGIN
+    DBMS_OUTPUT.PUT_LINE('a = ' || a);
+    DBMS_OUTPUT.PUT_LINE('b = ' || b);
+    
+    temp := a;
+    a := b;
+    b := temp;
+    
+    DBMS_OUTPUT.PUT_LINE('a = ' || a);
+    DBMS_OUTPUT.PUT_LINE('b = ' || b);
+  END;
+  /
+
+2)
+  CREATE OR REPLACE FUNCTION factorielle(a NUMBER) RETURN NUMBER IS
+  BEGIN
+    IF a > 1 THEN
+      RETURN a * factorielle(a - 1);
+    ELSE
+      RETURN 1;
+    END IF;
+  END;
+  /
+  
+  SET SERVEROUTPUT ON
+  DECLARE
+    a NUMBER(8) := 10;
+    f_a NUMBER(8);
+  BEGIN
+    DBMS_OUTPUT.PUT_LINE('a = ' || a);
+    f_a := factorielle(a);
+    DBMS_OUTPUT.PUT_LINE('f_a = ' || f_a);
+  END;
+  /
+
+3)
+  CREATE OR REPLACE FUNCTION ppcm(c NUMBER, d NUMBER) RETURN NUMBER IS
+    a NUMBER(8) := c;
+    b NUMBER(8) := d;
+  BEGIN
+    LOOP
+      IF a > b THEN
+        b := b + d;
+      ELSIF a < b THEN
+        a := a + c;
+      ELSE
+        RETURN a;
+      END IF;
+    END LOOP;
+  END;
+  /
+  
+  SET SERVEROUTPUT ON
+  DECLARE
+    a NUMBER(8) := 140;
+    b NUMBER(8) := 160;
+    m_ab NUMBER(8);
+  BEGIN
+    DBMS_OUTPUT.PUT_LINE('a = ' || a);
+    DBMS_OUTPUT.PUT_LINE('b = ' || b);
+    m_ab := ppcm(a, b);
+    DBMS_OUTPUT.PUT_LINE('m_ab = ' || m_ab);
+  END;
+  /
+
+4)

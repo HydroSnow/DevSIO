@@ -1,0 +1,176 @@
+1)
+SELECT immatbus, datmisenservicebus, libtypbus
+FROM tp2bbus b
+INNER JOIN tp2btypebus tb ON b.codtypbus = tb.codtypbus
+ORDER BY datmisenservicebus DESC;
+
+2)
+SELECT immatbus
+FROM tp2bbus
+WHERE datmisenservicebus > to_date('01/01/1999', 'DD/MM/YYYY');
+
+3)
+SELECT arretdeplig
+FROM tp2bligne
+WHERE arretdeplig LIKE 'Fontaine%';
+
+4)
+SELECT max(duree)
+FROM tp2bparcours;
+
+5)
+SELECT DISTINCT nomcond, prencond, datpermiscond
+FROM tp2bparcours p
+INNER JOIN tp2bconducteur c ON p.nopermis = c.nopermis
+WHERE noligne = 12;
+
+6)
+SELECT c.*, horaire
+FROM tp2bparcours p
+INNER JOIN tp2bconducteur c ON c.nopermis = p.nopermis
+WHERE horaire BETWEEN to_date('03/01/2010 08:00:00', 'DD/MM/YYYY HH:MI:SS') 
+AND to_date('03/01/2010 12:00:00', 'DD/MM/YYYY HH:MI:SS')
+ORDER BY horaire;
+
+7)
+SELECT arretdeplig
+FROM tp2bligne l
+INNER JOIN tp2bparcours p ON l.noligne = p.noligne
+INNER JOIN tp2bconducteur c ON c.nopermis = p.nopermis
+WHERE horaire < to_date('03/01/2010', 'DD/MM/YYYY')
+AND nomcond = 'PROST';
+
+8)
+SELECT avg(duree)
+FROM tp2bligne l
+INNER JOIN tp2bparcours p ON l.noligne = p.noligne;
+
+9)
+SELECT sum(duree)
+FROM tp2bparcours p
+INNER JOIN tp2bconducteur c ON c.nopermis = p.nopermis
+WHERE horaire BETWEEN to_date('01/01/2010 00:00:00', 'DD/MM/YYYY HH24/MI/SS')
+AND to_date('31/01/2010 23:59:59', 'DD/MM/YYYY HH24/MI/SS')
+AND nomcond = 'ALESI';
+
+10)
+SELECT arretdeplig
+FROM tp2bligne
+WHERE arretdeplig NOT IN (
+  SELECT arretterminuslig
+  FROM tp2bligne
+);
+
+11)
+SELECT immatbus, EXTRACT(YEAR FROM sysdate) - EXTRACT(YEAR FROM datmisenservicebus) as DUREE
+FROM tp2bbus
+WHERE datmisenservicebus < to_date('01/01/1997', 'DD/MM/YYYY');
+
+12)
+SELECT codtypbus, count(*)
+FROM tp2bbus
+GROUP BY codtypbus;
+
+13)
+SELECT c.nopermis, nomcond, i.ct
+FROM tp2bconducteur c
+INNER JOIN (
+  SELECT nopermis, count(*) as ct
+  FROM tp2bparcours p
+  WHERE horaire BETWEEN to_date('01/01/2010 00:00:00', 'DD/MM/YYYY HH24/MI/SS')
+  AND to_date('31/12/2010 23:59:59', 'DD/MM/YYYY HH24/MI/SS')
+  GROUP BY nopermis
+) i ON c.nopermis = i.nopermis;
+
+
+14)
+SELECT trunc(horaire, 'DD'), noligne, count(*)
+FROM tp2bparcours
+GROUP BY trunc(horaire, 'DD'), noligne;
+
+15)
+SELECT immatbus
+FROM tp2bparcours
+GROUP BY immatbus
+HAVING count(*) >= 3;
+
+16)
+SELECT nopermis, count(*)
+FROM tp2bparcours
+GROUP BY nopermis;
+
+17)
+SELECT nomcond, prencond
+FROM tp2bconducteur p
+INNER JOIN (
+  SELECT nopermis, count(*) as count
+  FROM tp2bparcours
+  WHERE noligne IN (5, 9, 12)
+  GROUP BY nopermis
+) c ON c.nopermis = p.nopermis
+WHERE count >= 10;
+
+18)
+SELECT *
+FROM tp2bparcours
+WHERE duree = (
+  SELECT max(duree)
+  FROM tp2bparcours
+);
+
+19)
+SELECT marquebus, count(*)
+FROM tp2bbus
+GROUP BY marquebus
+HAVING count(marquebus) = (
+  SELECT max(count(marquebus))
+  FROM tp2bbus b
+  GROUP BY b.marquebus
+);
+
+20)
+SELECT *
+FROM tp2bbus
+WHERE immatbus IN (
+  SELECT p.immatbus
+  FROM tp2bbus b
+  INNER JOIN tp2bparcours p ON b.immatbus = p.immatbus
+  GROUP BY p.immatbus
+  HAVING count(distinct nopermis) = (
+    SELECT count(*)
+    FROM tp2bconducteur
+  )
+);
+
+21)
+SELECT DISTINCT nomcond, prencond
+FROM tp2bconducteur c
+INNER JOIN tp2bparcours p ON c.nopermis = p.nopermis
+WHERE duree = (
+  SELECT min(duree)
+  FROM tp2bparcours
+);
+
+22)
+SELECT p.*
+FROM tp2bparcours p
+INNER JOIN tp2bbus b ON p.immatbus = b.immatbus
+WHERE marquebus = (
+  SELECT marquebus
+  FROM tp2bbus
+  WHERE datmisenservicebus = '01/12/95'
+);
+
+23)
+SELECT arretdeplig
+FROM tp2bligne
+UNION
+SELECT arretterminuslig
+FROM tp2bligne;
+
+24)
+SELECT sum(duree)
+FROM tp2bparcours
+WHERE horaire BETWEEN to_date('01/01/2010', 'DD/MM/YYYY') 
+AND to_date('31/12/2010', 'DD/MM/YYYY');
+

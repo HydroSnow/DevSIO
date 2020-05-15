@@ -1,0 +1,6 @@
+a)
+SELECT noms
+FROM soliste
+WHERE types IN ('ALTO', 'SOPRANO');
+
+b)

@@ -1,0 +1,20 @@
+-- Délimiteur : ROGER
+
+-- Rédiger une procédure stockée « AugmenterLoyer » permettant d’augmenter le loyer d’un pourcentage passé en paramètre pour les appartements possédant une terrasse.
+CREATE PROCEDURE AugmenterLoyer(a INT)
+BEGIN
+	UPDATE appartement SET loyerApt = loyerApt * (1 + a / 100) WHERE terrasseApt = "O";
+END
+ROGER
+
+
+-- Rédiger une fonction stockée « SuperficieTotaleImmeuble » qui retourne la superficie totale d’un immeuble dont le numéro est passé en paramètre. On prendra en compte la superficie de chaque appartement composant l’immeuble.
+CREATE FUNCTION SuperficieTotaleImmeuble(a INT) RETURNS INT
+READS SQL DATA
+BEGIN
+	DECLARE b INT;
+	SELECT sum(superficieApt) INTO b FROM appartement WHERE idIm = a;
+	RETURN b;
+END
+ROGER
+

@@ -1,0 +1,120 @@
+1)
+ALTER TABLE clientele
+ADD (
+  telephone VARCHAR(10)
+);
+
+2)
+DESCRIBE ouvriere;
+
+ALTER TABLE ouvriere
+MODIFY (
+  adresse VARCHAR(70)
+);
+
+3)
+(question passée)
+
+4)
+UPDATE clientele 
+SET telephone = '0244546587'
+WHERE raison = 'Vacances 2002';
+
+5)
+SELECT sum(qteass)
+FROM assembler a
+INNER JOIN ouvriere o ON o.nomat = A.nomat
+WHERE o.nom = 'MATHIEU';
+
+6)
+SELECT nocomp, design
+FROM composant c
+INNER JOIN prodf p ON c.nopf = p.nopf
+WHERE p.libellepf = 'Table Mer';
+
+7)
+SELECT dateouvr, sum(qteass)
+FROM assembler
+GROUP BY dateouvr
+ORDER BY sum(qteass);
+
+8)
+SELECT nomat, sum(qteass)
+FROM assembler
+WHERE dateouvr = '18/04/2016'
+GROUP BY nomat;
+
+9)
+(question passée)
+
+10)
+SELECT dateouvr
+FROM stock
+WHERE (si + qteent - qtesort) >= 5000
+AND nocomp = 515;
+
+11)
+SELECT sum(mtv)
+FROM vendre v
+INNER JOIN clientele c ON c.nocli = v.nocli
+WHERE raison LIKE '%Dupon%';
+
+12)
+SELECT sum(pha * qten)
+FROM composant
+WHERE nopf = 28;
+
+13)
+SELECT nomat, nopf, sum(qteass)
+FROM assembler
+WHERE dateouvr = '17/04/2016'
+GROUP BY nomat, nopf;
+
+14)
+SELECT nomfour, adrfour
+FROM fournisseur f
+WHERE nofour IN (
+  SELECT nofour
+  FROM composant 
+  GROUP BY nofour
+  HAVING count(*) = (
+    SELECT max(v)
+    FROM (
+      SELECT count(*) as v
+      FROM composant
+      GROUP BY nofour
+    )
+  )
+);
+
+15)
+SELECT nom, prenom
+FROM ouvriere
+WHERE nomat IN (
+  SELECT nomat
+  FROM assembler a
+  INNER JOIN prodf p ON p.nopf = A.nopf
+  WHERE libellepf LIKE 'Table%'
+  GROUP BY nomat
+  HAVING count(distinct a.nopf) = (
+    SELECT count(nopf)
+    FROM prodf
+    WHERE libellepf LIKE 'Table%'
+  )
+);
+
+16)
+SELECT *
+FROM fournisseur
+WHERE cpvillefour IN (
+  SELECT cpvillefour
+  FROM fournisseur
+  WHERE nomfour = 'DUVAL'
+);
+
+17)
+
+
+22)
+INSERT INTO clientele
+VALUES (3, 'Mme E6ssayage', '53000 LAVAL');
