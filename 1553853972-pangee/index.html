@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="fr-FR">
+
+<head>
+	<meta charset="utf-8">
+	<title>La Pangée</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<style>
+		body {
+			background-color: #222;
+			color: white;
+			font-size: 1.5em;
+		}
+
+		.navbar {
+			height: 72px;
+		}
+
+		.angel {
+			background: url("img/ange.jpg") center;
+			background-size: cover;
+			text-align: center;
+		}
+
+		.angel-inside {
+			display: inline-block;
+			border: 1px solid black;
+			background-color: #00000055;
+		}
+
+		.pile-txt {
+			height: 100%;
+			text-align: center;
+			background-color: black;
+			font-size: 2em;
+		}
+
+		.pile-img {
+			width: 100%;
+		}
+
+		.swag-text {
+			text-align: justify;
+		}
+
+		.ultrablock-dg {
+			background-color: #333;
+		}
+
+		.ultrablock-bg {
+			background-color: #444;	
+		}
+
+		footer {
+			background-color: black; 
+		}
+
+		p {
+			margin: 0px;
+			padding: 0px;
+		}
+	</style>
+</head>
+
+<body>
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+		<div class="container">
+			<h1> <a id="pange" href="index.html"> <span style="color: #A99">La</span> <span style="color: white">Pangée</span> </a> </h1>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav bg-dark ml-auto">
+					<li class="nav-item active px-2"> <a class="nav-link text-uppercase" href="index.html">Accueil</a> </li>
+					<li class="nav-item px-2"> <a class="nav-link text-uppercase" href="boutique.html">Boutique</a> </li>
+					<li class="nav-item px-2"> <a class="nav-link text-uppercase" href="#">A Propos</a> </li>
+					<li class="nav-item px-2"> <a class="nav-link text-uppercase" href="#">Contact</a> </li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<div style="height: 72px;"></div>
+	<div class="angel jumbotron p-7">
+		<div class="p-5 d-none d-xl-block"></div>
+		<div class="p-5 d-none d-lg-block"></div>
+		<div class="angel-inside px-5 py-4">
+			<h2>Préparez-vous à revivre !</h2>
+		</div>
+		<div class="p-5 d-none d-lg-block"></div>
+		<div class="p-5 d-none d-xl-block"></div>
+	</div>
+	<div class="container">
+		<div class="row my-4 ultrablock-dg p-3">
+			<div class="col-md-7 p-0">
+				<div class="pile-txt p-4 d-flex">
+					<div class="align-self-center m-auto">
+						<p class="p-4">
+							La nouvelle pile !<br />
+							<a href="boutique.html">Découvrir</a>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-5 p-0">
+				<img src="img/crane.jpg" class="pile-img" />
+			</div>
+		</div>
+		<div class="row my-4 ultrablock-bg p-3">
+			<div class="col-sm-4 p-0">
+				<img src="img/gold.png" class="pile-img" />
+			</div>
+			<div class="col-sm-4 p-0">
+				<img src="img/one.png" class="pile-img" />
+			</div>
+			<div class="col-sm-4 p-0">
+				<img src="img/plat.png" class="pile-img" />
+			</div>
+		</div>
+		<div class="row my-4 ultrablock-dg py-3">
+			<div class="col-sm px-4">
+				<h3>Informations</h3>
+				<p>La pile que nous avons crée est une innovation importante et va permettre une avancé majeur pour l'humanité. Elle permet à l'humain de se faire attribuer une espérance de vie illimité, elle stocke vos données cérébrales pour, en cas de décès, transmettre ces données dans un nouveau corps. Ces corps seront pour vous des enveloppes qui vous seront attribué aléatoirement en l’absence de paiement supplémentaire.</p>
+			</div>
+		</div>
+		<div class="row my-4 ultrablock-bg py-3">
+			<div class="col-sm px-4">
+				<h3>Contact</h3>
+				<p>Contactez-nous à cette adresse pour différents avis sur les produits : <a href="mailto:LaPangée@Cybercorp.com">LaPangée@Cybercorp.com</a></p>
+				<div class="p-3"></div>
+				<form class="shake" role="form" method="post" id="contactForm" name="contact-form" data-toggle="validator">
+					<div class="form-group label-floating">
+						<label class="control-label" for="name">Nom</label>
+						<input class="form-control" id="name" type="text" name="name" required data-error="Please enter your name">
+						<div class="help-block with-errors"></div>
+					</div>
+					<div class="form-group label-floating">
+						<label class="control-label" for="email">E-mail</label>
+						<input class="form-control" id="email" type="email" name="email" required data-error="Please enter your Email">
+						<div class="help-block with-errors"></div>
+					</div>
+					<div class="form-group label-floating">
+						<label class="control-label">Sujet</label>
+						<input class="form-control" id="msg_subject" type="text" name="subject" required data-error="Please enter your message subject">
+						<div class="help-block with-errors"></div>
+					</div>
+					<div class="form-group label-floating">
+						<label class="control-label" for="message">Message</label>
+						<textarea class="form-control" rows="3" id="message" name="message" required data-error="Write your message"></textarea>
+						<div class="help-block with-errors"></div>
+					</div>
+					<div class="form-submit mt-4">
+						<button class="btn btn-light" type="submit" id="form-submit">Envoyer</button>
+						<div id="msgSubmit" class="h3 text-center hidden"></div>
+						<div class="clearfix"></div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="row my-4 ultrablock-dg py-3">
+			<div class="col-sm text-center px-4">
+				<h3>Abonnez-vous à la newsletter</h3>
+				<form class="shake" role="form" method="post" id="contactForm" name="contact-form" data-toggle="validator">
+					<div class="form-group label-floating">
+						<label class="control-label" for="email">Votre e-mail</label>
+						<input class="form-control" id="email" type="email" name="email" required data-error="Please enter your Email">
+						<div class="help-block with-errors"></div>
+					</div>
+					<div class="form-submit mt-4">
+						<button class="btn btn-light" type="submit" id="form-submit">Go !</button>
+						<div id="msgSubmit" class="h3 text-center hidden"></div>
+						<div class="clearfix"></div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<footer class="footer text-faded text-center py-3">
+		<p>2055 &copy; par les inventeurs de génie Thomas et Benjamin</p>
+	</footer>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+
+</html>
