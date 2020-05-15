@@ -1,2 +1,2 @@
 #!/bin/sh
-stat -c %W "$1"
+mv $1 "$(stat -c %W "$1")-$1"
