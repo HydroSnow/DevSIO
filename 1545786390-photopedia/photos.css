@@ -1,0 +1,9 @@
+﻿img.photo-list {
+	width: 200px;
+}
+
+div.photo {
+	display: inline-block;
+	margin: 5px;
+	vertical-align: middle;
+}

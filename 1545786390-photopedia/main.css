@@ -1,0 +1,49 @@
+﻿html, body {
+	height: 100%;
+}
+
+body {
+	margin: 0;
+	
+	background-image: url("img/lac.jpg");
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-size: cover;
+	
+	text-align: center;
+	font-family: verdana, sans-serif;
+}
+
+#wrapper {
+	background-color: #DDDDFF;
+	
+	width: 80%;
+	min-width: 800px;
+	max-width: 1200px;
+	
+	margin-left: auto;
+	margin-right: auto;
+	
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+header, footer {
+	background-color: #222288;
+	color: #FFFFFF;
+}
+
+header, #up-header, #low-header, #content, footer {
+	width: 100%;
+}
+
+img#logo {
+	width: 300px;
+}
+
+#content {
+	font-size: 18px;
+	padding: 10px 0;
+}
+
