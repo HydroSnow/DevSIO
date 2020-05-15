@@ -1,0 +1,26 @@
+# both sides
+0x00: heartbeat
+0x01: connection start
+0x02: connection end
+
+
+# client to server
+0x10: client select "pierre"
+0x11: client select "feuille"
+0x12: client select "ciseau"
+
+
+# server to client
+0x20: put in session
+0x21: removed from session
+
+0x30: ack client select
+0x31: ack opponent select
+
+0x40: opponent selected "pierre"
+0x41: opponent selected "feuille"
+0x42: opponent selected "ciseau"
+
+0x50: client win
+0x51: client draw
+0x52: client lose
