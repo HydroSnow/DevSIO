@@ -1,0 +1,20 @@
+body {
+    background-color: #FFF;
+}
+
+nav {
+    background-color: black;
+}
+
+header {
+    color: orange;
+
+    background-image: url('media/illustration/header-top.jpg');
+	background-position: center center;
+	-webkit-background-size: cover;
+	background-size: cover;
+}
+
+.ultraborder {
+    border: 10px solid black;
+}
